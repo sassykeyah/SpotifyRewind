@@ -1,0 +1,7 @@
+curl -X POST "https://accounts.spotify.com/api/token" 
+     -H "Content-Type: application/x-www-form-urlencoded" 
+     -d "grant_type=client_credentials&client_id=6e63c82f396e41038413047e5c1a8157&client_secret=2744765a35844aaf84521a468301c471"
+
+
+curl "https://api.spotify.com/v1/artists/4Z8W4fKeB5YxbusRsdQVPb"  -H "Authorization: Bearer  BQDvJz-4wtgrPIwkCykkS75SLQjo8km23ksfc52s0m5zxSHt_vjJKYKbhEOfuLk45mko_qAI0aGPO5CxD0azyfzfsmLVxOqf3yTwqzyMMmlBD_I1ODX_cWnO2mcwHK9o2WYpXKXo4Zs"
+
