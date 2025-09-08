@@ -26,12 +26,21 @@ import { RouterLink, RouterView } from 'vue-router'
 
 <style scoped>
 .header {
-  overflow: hidden;
+  position: fixed;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
   background-color: #C0C6B8;
   padding: 20px 10px;
-  z-index: 1;
-  position: absolute;
-
+  z-index: 100;
+  width: auto;
+  min-width: 200px;
+  max-width: 90vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
 }
 
 /* Style the header links */
@@ -77,20 +86,20 @@ import { RouterLink, RouterView } from 'vue-router'
 
 /* Add media queries for responsiveness - when the screen is 500px wide or less, stack the links on top of each other */
 @media screen and (max-width: 500px) {
+  .header {
+    flex-direction: column;
+    padding: 10px 5px;
+    min-width: 120px;
+    max-width: 98vw;
+  }
   .header a {
-    float: none;
-
-    font-size: 10px;
-
+    font-size: 12px;
+    padding: 8px;
   }
-
-  .header-right {
-    float: none;
-  }
-
   .header a.logo {
-    font-size: 15px;
+    font-size: 18px;
     font-weight: bold;
+    margin-bottom: 4px;
   }
 }
 </style>

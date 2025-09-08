@@ -4,13 +4,15 @@ export default {
   name: 'SpotifyTracks',
   data() {
     return {
-      clientId: '6e63c82f396e41038413047e5c1a8157',         // 🔐 Replace with your actual Client ID
-      clientSecret: '2744765a35844aaf84521a468301c471', // 🔐 Replace with your actual Client Secret
+      clientId: '6e63c82f396e41038413047e5c1a8157',         
+      clientSecret: '2744765a35844aaf84521a468301c471', 
       accessToken: '',
-      trackIds: [
-        '3n3Ppam7vgaVa1iaRUc9Lp',
-        '7ouMYWpwJ422jRcDASZB7P',
-        '0eGsygTp906u18L0Oimnem'
+      events: [
+        { description: 2015, title: 'Started listening to Spotify', trackId: '3n3Ppam7vgaVa1iaRUc9Lp' },
+        {description: 2016, title: 'Discovered Rock Classics', trackId: '7ouMYWpwJ422jRcDASZB7P' },
+        { description: 2017, title: 'Fell in love with Pop Hits', trackId: '0eGsygTp906u18L0Oimnem' },
+        { description: 2018, title: 'Discovered Indie Rock', trackId: '0eGsygTp906u18L0Oimnem' },
+        { description: 2022, title: 'Created Spotify Rewind Project', trackId: '0eGsygTp906u18L0Oimnem' }
       ],
       tracks: []
     }
@@ -36,20 +38,30 @@ export default {
       this.accessToken = data.access_token
     },
     async fetchTracks() {
-      for (const id of this.trackIds) {
+      for (const event of this.events) {
         try {
-          const res = await fetch(`https://api.spotify.com/v1/tracks/${id}`, {
+          const res = await fetch(`https://api.spotify.com/v1/tracks/${event.trackId}`, {
             headers: {
               Authorization: `Bearer ${this.accessToken}`
             }
           })
           const track = await res.json()
-          this.tracks.push(track)
-        } catch (error) {
-          console.error(`Error fetching track ${id}:`, error)
+     this.tracks.push({
+        ...track,
+        description: event.description,
+        title: event.title
+      })
+    } catch (error) {
+      console.error(`Error fetching track ${event.trackId}:`, error)
         }
       }
+    },
+    getReleaseYear(date, precision) {
+      if (!date) return 'Unknown'
+      return precision === 'year' ? date : date.split('-')[0]
     }
+
+
   }
 }
 </script>
@@ -57,13 +69,22 @@ export default {
 
 
 <template>
-  <div>
-    <h2>🎧 Spotify Tracks</h2>
-    <ul>
-      <li v-for="track in tracks" :key="track.id">
-        {{ track.name }} by {{ track.artists[0].name }}
-      </li>
-    </ul>
+  <div class="timeline">
+    <div class="timeline-line"></div>
+    <div class="timeline-content">
+      <div
+        class="content"
+        v-for="(track, i) in tracks"
+        :key="track.id"
+        :class="i % 2 === 0 ? 'right' : 'left'"
+      >
+        <img :src="track.album.images[0]?.url" alt="Album Cover" />
+        <p>
+          {{ track.name }} by {{ track.artists[0].name }} {{ track.description }} - {{ track.title }}
+          {{ getReleaseYear(track.album.release_date, track.album.release_date_precision) }}
+        </p>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -75,103 +96,67 @@ img {
   object-fit: contain;
 }
 
-.search {
-  margin-top: 100px;
 
-}
 
-/* The actual timeline (the vertical ruler) */
+/* The actual timeline  */
 .timeline {
   position: relative;
   max-width: 1200px;
-  margin: 0 auto;
+  width: 100%;
+  margin: 100px auto 0 auto;
+  min-height: 300px;
 }
 
-/* The actual timeline (the vertical ruler) */
-.timeline::after {
-  content: '';
+.timeline-line {
   position: absolute;
-  width: 6px;
+  height: 6px;
+  width: 100vw;
   background-color: #3E3D3D;
-  top: 0;
-  bottom: 0;
   left: 50%;
-  margin-left: -3px;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 0;
 }
 
-/* Container around content */
-.container {
-  padding: 10px 40px;
-  position: relative;
-  background-color: inherit;
-  width: 500px;
-}
 
-/* The circles on the timeline */
-.container::after {
-  content: '';
+.timeline-content {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
   position: absolute;
-  width: 25px;
-  height: 25px;
-  right: -13px;
-  background-color: #3E3D3D;
-  border: 4px solid #C0C6B8;
-  top: 15px;
-  border-radius: 50%;
+  left: 0;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
   z-index: 1;
+  gap: 48px; /* space between blocks */
 }
-
-/* Place the container to the left */
-.left {
-  left: -50%;
-}
-
-/* Place the container to the right */
-.right {
-  left: 50%;
-}
-
-/* Add arrows to the left container (pointing right) */
-.left::before {
-  content: " ";
-  height: 0;
-  position: absolute;
-  top: 22px;
-  width: 0;
-  z-index: 1;
-  right: 30px;
-  border: medium solid #3E3D3D;
-  border-width: 10px 0 10px 10px;
-  border-color: transparent transparent transparent #3E3D3D;
-}
-
-/* Add arrows to the right container (pointing left) */
-.right::before {
-  content: " ";
-  height: 0;
-  position: absolute;
-  top: 22px;
-  width: 0;
-  z-index: 1;
-  left: 30px;
-  border: medium solid #3E3D3D;
-  border-width: 10px 10px 10px 0;
-  border-color: transparent #3E3D3D transparent transparent;
-}
-
-/* Fix the circle for containers on the right side */
-.right::after {
-  left: -12px;
-}
-
-/* The actual content */
 .content {
-  padding: 20px 30px;
+  width: 340x;
+  aspect-ratio: 1 / 1;
   background-color: #C0C6B8;
   position: relative;
-  border-radius: 6px;
+  border-radius: 16px;
   color: #3E3D3D;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  margin: 0
 }
+
+/* Remove vertical offset for above/below */
+.right, .left {
+margin: 0; /* no offset, so content sits on the line */
+}
+
+
+
+
+
 
 /* Media queries - Responsive timeline on screens less than 600px wide */
 @media screen and (max-width: 1024px) {
