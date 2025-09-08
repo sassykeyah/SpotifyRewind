@@ -8,11 +8,23 @@ export default {
       clientSecret: '2744765a35844aaf84521a468301c471', 
       accessToken: '',
       events: [
-        { description: 2015, title: 'Started listening to Spotify', trackId: '3n3Ppam7vgaVa1iaRUc9Lp' },
-        {description: 2016, title: 'Discovered Rock Classics', trackId: '7ouMYWpwJ422jRcDASZB7P' },
-        { description: 2017, title: 'Fell in love with Pop Hits', trackId: '0eGsygTp906u18L0Oimnem' },
-        { description: 2018, title: 'Discovered Indie Rock', trackId: '0eGsygTp906u18L0Oimnem' },
-        { description: 2022, title: 'Created Spotify Rewind Project', trackId: '0eGsygTp906u18L0Oimnem' }
+        { description: 'Australia hosts its first Olympics. Coinciding with televisions national release.' , title: 'Melbourne hosts the Olympic Games.', trackId: '3n3Ppam7vgaVa1iaRUc9Lp' },
+        { description: 'Parliament passes an act, allowing First Nations people to enroll and vote in federal elections NMA, 2018).', title: 'Indigenous Australians granted the right to vote.', trackId: '7ouMYWpwJ422jRcDASZB7P' },
+        { description: 'Australia begins transition from pounds to dollars.', title: 'Decimal currency is introduced.', trackId: '0eGsygTp906u18L0Oimnem' },
+        { description: 'Destroying 80% of the city and killing 66 people (NMA, 2024).', title: 'Cyclone Tracy hit Darwin on Christmas Day.', trackId: '0eGsygTp906u18L0Oimnem' },
+        { description: 'Establishes national basic healthcare for Australians.', title: 'Medicare is introduced in Australia.', trackId: '0eGsygTp906u18L0Oimnem' },
+        { description: 'Australian Government hands land titles to Anangu people.', title: 'Uluru Handback.', trackId: '0eGsygTp906u18L0Oimnem' },
+        { description: 'Port Arthur Massacre Occurs. Killing 35 people, it started major gun reforms in the nation.', title: 'Port Arthur Massacre Occurs.', trackId: '0eGsygTp906u18L0Oimnem' },
+        { description: 'Australia votes NO to a republic. Retaining the monarchy.', title: 'Australia votes NO to a republic.', trackId: '0eGsygTp906u18L0Oimnem' },
+        { description: 'Lighting the Olympic flame, promoting reconciliation across the nation.', title: 'Kathy Freeman wins gold in the 400m sprint.', trackId: '0eGsygTp906u18L0Oimnem' },
+        { description: 'Bushfires in Victoria Kill 173 people.', title: 'Black Saturday.', trackId: '0eGsygTp906u18L0Oimnem' },
+        { description: 'Julia Gillard is sworn in by Australias first governor-general.', title: 'Australias first female prime minister.', trackId: '0eGsygTp906u18L0Oimnem' },
+        { description: 'Australias national disability scheme.', title: 'NDIS is introduced.', trackId: '0eGsygTp906u18L0Oimnem' },
+        { description: 'Redefining the Marriage Act to give rights to same-sex couples.', title: 'Same sex marriage is legalised in Australia.', trackId: '0eGsygTp906u18L0Oimnem' },
+        { description: 'Burning 19 hectares and over 3,000 homes (NHRA, 2023)', title: 'Black Summer.', trackId: '0eGsygTp906u18L0Oimnem' },
+        { description: 'The first case of COVID-19 was reported in Australia.', title: ' COVID-19 hits Australia.', trackId: '0eGsygTp906u18L0Oimnem' },
+        { description: ' Australia votes NO to providing a permanent voice for Indigenous Australians.', title: 'Voice to Parliament referendum.', trackId: '0eGsygTp906u18L0Oimnem' }
+
       ],
       tracks: []
     }
@@ -79,10 +91,12 @@ export default {
         :class="i % 2 === 0 ? 'right' : 'left'"
       >
         <img :src="track.album.images[0]?.url" alt="Album Cover" />
-        <p>
-          {{ track.name }} by {{ track.artists[0].name }} {{ track.description }} - {{ track.title }}
-          {{ getReleaseYear(track.album.release_date, track.album.release_date_precision) }}
-        </p>
+         <h2>{{ getReleaseYear(track.album.release_date, track.album.release_date_precision) }}</h2>
+
+  <h3>{{ track.title }}</h3>
+    <h4>{{ track.description }}</h4>
+  <h5>{{ track.name }}</h5>
+  <h5>by {{ track.artists[0].name }}</h5>
       </div>
     </div>
   </div>
@@ -90,6 +104,8 @@ export default {
 
 
 <style scoped>
+
+/* album art styling */
 img {
   width: 70%;
   height: 70%;
@@ -98,15 +114,15 @@ img {
 
 
 
-/* The actual timeline  */
+/* container for timeline (centers and sets max width)*/
 .timeline {
-  position: relative;
+  
   max-width: 1200px;
   width: 100%;
   margin: 100px auto 0 auto;
   min-height: 300px;
 }
-
+/* line for timeline (streches ACROSS WHOLE SCREEN) */
 .timeline-line {
   position: absolute;
   height: 6px;
@@ -118,7 +134,7 @@ img {
   z-index: 0;
 }
 
-
+/* content within timeline (horiztonal) */
 .timeline-content {
   display: flex;
   flex-direction: row;
@@ -130,10 +146,12 @@ img {
   top: 50%;
   transform: translateY(-50%);
   z-index: 1;
-  gap: 48px; /* space between blocks */
+  gap: 48px; 
 }
+
+/* content block (styling each background(block) of content) */
 .content {
-  width: 340x;
+  width: 340px;
   aspect-ratio: 1 / 1;
   background-color: #C0C6B8;
   position: relative;
@@ -148,13 +166,43 @@ img {
   margin: 0
 }
 
-/* Remove vertical offset for above/below */
+
 .right, .left {
-margin: 0; /* no offset, so content sits on the line */
+margin: 0; 
 }
 
 
+.content h2 { /* Year */
+  font-size: 2rem;
+  font-weight: bold;
+  margin: 12px 0 6px 0;
+  color: #2E2E2E;
+  text-align: center;
+}
 
+.content h3 { /* Description */
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin: 6px 0;
+  color: #3E3D3D;
+  text-align: center;
+}
+
+.content h4 { /* Title */
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin: 6px 0;
+  color: #4E4E4E;
+  text-align: center;
+}
+
+.content h5 { /* Track name and artist */
+  font-size: 1rem;
+  font-weight: 400;
+  margin: 4px 0;
+  color: #5E5E5E;
+  text-align: center;
+}
 
 
 
