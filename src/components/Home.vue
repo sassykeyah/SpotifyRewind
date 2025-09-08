@@ -8,7 +8,7 @@ export default {
       clientSecret: '2744765a35844aaf84521a468301c471', 
       accessToken: '',
       events: [
-        { description: 'Australia hosts its first Olympics. Coinciding with televisions national release.' , title: 'Melbourne hosts the Olympic Games.', trackId: '3n3Ppam7vgaVa1iaRUc9Lp' },
+        { description: 'Australia hosts its first Olympics. Coinciding with televisions national release.' , title: 'Melbourne hosts the Olympic Games.', trackId: '46dHcg4e6XNhpYIHHDeC9f' },
         { description: 'Parliament passes an act, allowing First Nations people to enroll and vote in federal elections NMA, 2018).', title: 'Indigenous Australians granted the right to vote.', trackId: '7ouMYWpwJ422jRcDASZB7P' },
         { description: 'Australia begins transition from pounds to dollars.', title: 'Decimal currency is introduced.', trackId: '0eGsygTp906u18L0Oimnem' },
         { description: 'Destroying 80% of the city and killing 66 people (NMA, 2024).', title: 'Cyclone Tracy hit Darwin on Christmas Day.', trackId: '0eGsygTp906u18L0Oimnem' },
@@ -82,8 +82,9 @@ export default {
 
 <template>
   <div class="timeline">
-    <div class="timeline-line"></div>
+   
     <div class="timeline-content">
+       <div class="timeline-line"></div>
       <div
         class="content"
         v-for="(track, i) in tracks"
@@ -91,15 +92,16 @@ export default {
         :class="i % 2 === 0 ? 'right' : 'left'"
       >
         <img :src="track.album.images[0]?.url" alt="Album Cover" />
-         <h2>{{ getReleaseYear(track.album.release_date, track.album.release_date_precision) }}</h2>
-
-  <h3>{{ track.title }}</h3>
-    <h4>{{ track.description }}</h4>
-  <h5>{{ track.name }}</h5>
-  <h5>by {{ track.artists[0].name }}</h5>
+        <h2>{{ getReleaseYear(track.album.release_date, track.album.release_date_precision) }}</h2>
+        <h3>{{ track.title }}</h3>
+        <h4>{{ track.description }}</h4>
+        <h5>{{ track.name }}</h5>
+        <h5>by {{ track.artists[0].name }}</h5>
       </div>
     </div>
   </div>
+  
+  
 </template>
 
 
@@ -121,16 +123,16 @@ img {
   width: 100%;
   margin: 100px auto 0 auto;
   min-height: 300px;
+ 
 }
 /* line for timeline (streches ACROSS WHOLE SCREEN) */
 .timeline-line {
   position: absolute;
-  height: 6px;
-  width: 100vw;
-  background-color: #3E3D3D;
-  left: 50%;
+  left: 0;
   top: 50%;
-  transform: translate(-50%, -50%);
+  width: 450%;
+  height: 6px;
+  background-color: #3E3D3D;
   z-index: 0;
 }
 
@@ -146,11 +148,15 @@ img {
   top: 50%;
   transform: translateY(-50%);
   z-index: 1;
-  gap: 48px; 
+  gap: 400px; 
+  
+ 
+  
 }
 
 /* content block (styling each background(block) of content) */
 .content {
+  flex-shrink: 0;
   width: 340px;
   aspect-ratio: 1 / 1;
   background-color: #C0C6B8;
