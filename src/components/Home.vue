@@ -82,9 +82,7 @@ export default {
 
 <template>
   <div class="timeline">
-   
     <div class="timeline-content">
-       <div class="timeline-line"></div>
       <div
         class="content"
         v-for="(track, i) in tracks"
@@ -100,13 +98,12 @@ export default {
       </div>
     </div>
   </div>
-  
-  
 </template>
 
 
 <style scoped>
 
+/* album art styling */
 /* album art styling */
 img {
   width: 70%;
@@ -114,157 +111,133 @@ img {
   object-fit: contain;
 }
 
-
-
 /* container for timeline (centers and sets max width)*/
 .timeline {
-  
-  max-width: 1200px;
-  width: 100%;
+  position: relative;
+  width: 100vw;
   margin: 100px auto 0 auto;
-  min-height: 300px;
- 
-}
-/* line for timeline (streches ACROSS WHOLE SCREEN) */
-.timeline-line {
-  position: absolute;
-  left: 0;
-  top: 50%;
-  width: 450%;
-  height: 6px;
-  background-color: #3E3D3D;
-  z-index: 0;
+  min-height: 380px;
+  overflow: visible;
 }
 
-/* content within timeline (horiztonal) */
+
+
+/* content within timeline (horizontal) */
 .timeline-content {
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   position: absolute;
   left: 0;
-  right: 0;
   top: 50%;
   transform: translateY(-50%);
+  gap: 96px; /* Larger gap for big containers */
+  padding: 0 96px;
   z-index: 1;
-  gap: 400px; 
-  
- 
-  
+  width: max-content;
+  min-width: 100vw;
+}
+
+/* Timeline line using pseudo-element */
+.timeline-content::before {
+  content: '';
+  position: absolute;
+  height: 6px;
+  width: 100%;
+  background-color: #3E3D3D;
+  left: 0;
+  top: 0;
+  z-index: 0;
 }
 
 /* content block (styling each background(block) of content) */
 .content {
+  width: 840px; /* Large containers */
+  height: 840px;
+  min-width: 840px;
+  max-width: 840px;
+  min-height: 840px;
+  max-height: 840px;
   flex-shrink: 0;
-  width: 340px;
-  aspect-ratio: 1 / 1;
+  flex-grow: 0;
   background-color: #C0C6B8;
   position: relative;
-  border-radius: 16px;
+  border-radius: 32px; /* Larger border radius for proportion */
   color: #3E3D3D;
-  padding: 24px;
+  padding: 48px; /* Larger padding */
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   box-sizing: border-box;
-  margin: 0
+  margin: 0;
+  overflow: hidden;
 }
-
 
 .right, .left {
-margin: 0; 
+  margin: 0; 
 }
 
-
+/* Typography - scaled up for larger containers */
 .content h2 { /* Year */
-  font-size: 2rem;
+  font-size: 3.6rem; /* Doubled from 1.8rem */
   font-weight: bold;
-  margin: 12px 0 6px 0;
+  margin: 16px 0 8px 0;
   color: #2E2E2E;
   text-align: center;
 }
 
-.content h3 { /* Description */
-  font-size: 1.3rem;
+.content h3 { /* Title */
+  font-size: 2.2rem; /* Doubled from 1.1rem */
   font-weight: 600;
-  margin: 6px 0;
+  margin: 8px 0;
   color: #3E3D3D;
   text-align: center;
+  line-height: 1.3;
 }
 
-.content h4 { /* Title */
-  font-size: 1.1rem;
-  font-weight: 500;
-  margin: 6px 0;
+.content h4 { /* Description */
+  font-size: 1.8rem; /* Doubled from 0.9rem */
+  font-weight: 400;
+  margin: 8px 0;
   color: #4E4E4E;
   text-align: center;
+  line-height: 1.4;
+  max-height: 160px;
+  overflow-y: auto;
 }
 
 .content h5 { /* Track name and artist */
-  font-size: 1rem;
+  font-size: 1.6rem; /* Doubled from 0.8rem */
   font-weight: 400;
   margin: 4px 0;
   color: #5E5E5E;
   text-align: center;
 }
 
-
-
-/* Media queries - Responsive timeline on screens less than 600px wide */
-@media screen and (max-width: 1024px) {
-
-  /* Place the timelime to the left */
-  .timeline::after {
-    content: '';
-    position: absolute;
-    width: 6px;
-    background-color: #3E3D3D;
-    top: 0;
-    bottom: 0;
-    left: 28px;
-    margin-left: -3px;
-  }
-
-  /* Full-width containers */
-  .container {
-    width: 500px;
-    padding-left: 70px;
-    padding-right: 25px;
-  }
-
-  /* Make sure that all arrows are pointing leftwards */
-  .container::before {
-    left: 60px;
-    border: medium solid #3E3D3D;
-    border-width: 10px 10px 10px 0;
-    border-color: transparent #3E3D3D transparent transparent;
-  }
-
-  /* Make sure all circles are at the same spot */
-  .left::after,
-  .right::after {
-    left: 12px;
-  }
-
-  .left {
-    left: 5px;
-  }
-
-  /* Make all right containers behave like the left ones */
-  .right {
-    left: 5px;
-  }
+/* Custom scrollbar styling */
+body {
+  overflow-x: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #3E3D3D #e0e0e0;
 }
 
-/* media query for phones/small form factors*/
-@media screen and (max-width: 600px) {
-
-
-  /* Full-width containers */
-  .container {
-    width: 300px;
-  }
+body::-webkit-scrollbar {
+  height: 8px;
 }
+
+body::-webkit-scrollbar-track {
+  background: #f0f0f0;
+}
+
+body::-webkit-scrollbar-thumb {
+  background: #3E3D3D;
+  border-radius: 4px;
+}
+
+body::-webkit-scrollbar-thumb:hover {
+  background: #5E5E5E;
+}
+
 </style>
