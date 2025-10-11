@@ -35,6 +35,17 @@ export default {
   async mounted() {
     await this.getAccessToken()
     await this.fetchTracks()
+    this.setupHorizontalScroll()
+    
+    await this.$nextTick(() => {
+      window.scrollTo({
+        left: 200,
+        behavior: 'instant'
+      })
+    })
+  },
+  beforeDestroy() {
+    window.removeEventListener('wheel', this.handleScroll)
   },
   methods: {
     async getAccessToken() {
@@ -72,6 +83,18 @@ export default {
           console.error(`Error fetching track ${event.trackId}:`, error)
         }
       }
+    },
+    setupHorizontalScroll() {
+      window.addEventListener('wheel', this.handleScroll, { passive: false })
+    },
+    handleScroll(event) {
+      event.preventDefault() 
+      
+      
+      const scrollAmount = event.deltaY * 0.8
+      
+      
+      window.scrollBy(scrollAmount, 0)
     }
   }
 }
@@ -200,22 +223,22 @@ img {
   color: #4E4E4E;
   text-align: center;
   line-height: 1.4;
-  /* Removed max-height and overflow-y to prevent scroll */
+  
 }
 
-.content h5 { /* Track name and artist */
-  font-size: 1.2rem; /* Reduced slightly */
+.content h5 { 
+  font-size: 1.2rem; 
   font-weight: 400;
   margin: 4px 0;
   color: #5E5E5E;
   text-align: center;
-  display: block; /* Changed from inline for better spacing */
+  display: block; 
 }
 
-/* Track info container for better spacing */
 
 
-/* Custom scrollbar styling */
+
+
 body {
   overflow-x: auto;
   scrollbar-width: thin;
