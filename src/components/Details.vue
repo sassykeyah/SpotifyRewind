@@ -1,12 +1,12 @@
 <script lang="js">
+import { getEventByTrackId } from '@/data/events.js'
+import { getSpotifyAccessToken, fetchSpotifyTrack } from '@/services/spotify.js'
 
 export default {
   name: 'Detail',
-  props: ['id', 'year', 'title', 'description'],
+  props: ['id'],
   data() {
     return {
-      clientId: '6e63c82f396e41038413047e5c1a8157',         
-      clientSecret: '2744765a35844aaf84521a468301c471', 
       accessToken: '',
       track: null,
       isLoading: true,
@@ -20,36 +20,14 @@ export default {
   },
   methods: {
     async getAccessToken() {
-      const authString = btoa(`${this.clientId}:${this.clientSecret}`)
-
-      const response = await fetch('https://accounts.spotify.com/api/token', {
-        method: 'POST',
-        headers: {
-          'Authorization': `Basic ${authString}`,
-          'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        body: 'grant_type=client_credentials'
-      })
-
-      const data = await response.json()
-      this.accessToken = data.access_token
+      this.accessToken = await getSpotifyAccessToken()
     },
     async fetchTrack() {
       this.isLoading = true
       this.error = null
       
       try {
-        const res = await fetch('https://api.spotify.com/v1/tracks/' + this.id, {
-          headers: {
-            Authorization: `Bearer ${this.accessToken}`
-          }
-        })
-        
-        if (!res.ok) {
-          throw new Error(`HTTP error! status: ${res.status}`)
-        }
-        
-        const track = await res.json()
+        const track = await fetchSpotifyTrack(this.id, this.accessToken)
         this.track = track
         console.log('Track loaded:', track)
         
@@ -59,6 +37,9 @@ export default {
       } finally {
         this.isLoading = false
       }
+    },
+    getEventByTrackId(trackId) {
+      return getEventByTrackId(trackId)
     }
   }
 }
@@ -66,6 +47,11 @@ export default {
 
 <template>
   <div class="item">
+    <!-- Add this line to display title from events using trackId -->
+    <p>{{ getEventByTrackId(this.id)?.year }}</p>
+    <p>{{ getEventByTrackId(this.id)?.title }}</p>
+    <p>{{ getEventByTrackId(this.id)?.description }}</p>
+    
     <!-- Loading state -->
     <div v-if="isLoading" class="loading">
       <p>Loading track...</p>
@@ -84,6 +70,7 @@ export default {
       <p class="artist">by {{ track.artists && track.artists[0] ? track.artists[0].name : 'Unknown Artist' }}</p>
       <p class="album">Album: {{ track.album ? track.album.name : 'Unknown Album' }}</p>
       <p class="release-date">Released: {{ track.album ? track.album.release_date : 'Unknown' }}</p>
+      
       
       <!-- Spotify link -->
       <a v-if="track.external_urls && track.external_urls.spotify" 
