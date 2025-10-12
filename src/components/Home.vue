@@ -87,22 +87,26 @@ export default {
 
 <style scoped>
 
-/* album art styling - smaller image */
+/* album art styling - properly sized image */
 img {
-  width: 400px; /* Fixed size instead of percentage */
-  height: 400px;
+  width: 250px; /* Reduced size to fit better */
+  height: 250px;
   object-fit: cover;
-  border-radius: 12px; /* Add some rounding */
-  margin-bottom: 20px;
+  border-radius: 12px;
+  margin-bottom: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 /* container for timeline (centers and sets max width)*/
 .timeline {
   position: relative;
   width: 100vw;
-  margin: 100px auto 0 auto;
-  min-height: 380px;
+  margin: 200px auto 0 auto; /* Increased top margin for alternating layout */
+  min-height: 600px; /* Increased to accommodate alternating blocks */
   overflow: visible;
+  font-family: "new-kansas", sans-serif;
+font-weight: 400;
+font-style: normal;
 }
 
 /* content within timeline (horizontal) */
@@ -110,10 +114,10 @@ img {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
-  align-items: center;
+  align-items: center; /* This centers relative to the timeline line */
   position: relative;
-  gap: 96px;
-  padding: 0 96px;
+  gap: 80px; /* Slightly reduced gap */
+  padding: 0 80px;
   z-index: 1;
   width: max-content;
   min-width: 100vw;
@@ -134,73 +138,128 @@ img {
 
 /* content block (styling each background(block) of content) */
 .content {
-  width: 900px;
-  height: 900px;
-  min-width: 900px;
-  max-width: 900px;
-  min-height: 900px;
-  max-height: 900px;
+  width: 600px; /* Reduced from 900px */
+  height: 650px; /* Reduced from 900px */
+  min-width: 600px;
+  max-width: 600px;
+  min-height: 650px;
+  max-height: 650px;
   flex-shrink: 0;
   flex-grow: 0;
   background-color: #C0C6B8;
   position: relative;
-  border-radius: 32px;
+  border-radius: 24px; /* Slightly smaller radius */
   color: #3E3D3D;
-  padding: 48px;
+  padding: 32px; /* Reduced padding */
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
   box-sizing: border-box;
-  margin: 0;
   overflow: hidden;
-  z-index: 1;
+  z-index: 2;
+  transition: transform 0.3s ease;
 }
 
-.right, .left {
-  margin: 0; 
+/* Alternating layout - even items above the line */
+.right {
+  transform: translateY(-150px); /* Move above the timeline */
+  margin: 0;
 }
 
-/* Typography - adjusted sizes to fit all content */
+/* Alternating layout - odd items below the line */
+.left {
+  transform: translateY(150px); /* Move below the timeline */
+  margin: 0;
+}
+
+/* Typography - optimized for smaller content blocks */
 .content h2 { /* Year */
-  font-size: 3rem; /* Reduced slightly */
+  font-size: 2.2rem; /* Further reduced for smaller blocks */
   font-weight: bold;
-  margin: 12px 0 8px 0;
+  margin: 8px 0 6px 0;
   color: #2E2E2E;
   text-align: center;
 }
 
 .content h3 { /* Title */
-  font-size: 1.8rem; /* Reduced slightly */
+  font-size: 1.4rem; /* Reduced for better fit */
   font-weight: 600;
-  margin: 8px 0 12px 0;
+  margin: 6px 0 8px 0;
   color: #3E3D3D;
   text-align: center;
   line-height: 1.3;
 }
 
 .content h4 { /* Description */
-  font-size: 1.3rem; /* Reduced to fit better */
+  font-size: 1.1rem; /* Reduced for smaller blocks */
   font-weight: 400;
-  margin: 8px 0 16px 0;
+  margin: 6px 0 12px 0;
   color: #4E4E4E;
   text-align: center;
   line-height: 1.4;
-  
+  max-height: 80px; /* Limit height to prevent overflow */
+  overflow: hidden;
 }
 
 .content h5 { 
-  font-size: 1.2rem; 
+  font-size: 1.0rem; /* Reduced font size */
   font-weight: 400;
-  margin: 4px 0;
+  margin: 3px 0;
   color: #5E5E5E;
   text-align: center;
-  display: block; 
+  display: block;
 }
 
+/* Track info container for better spacing */
+.track-info {
+  margin-top: auto; /* Push to bottom of flex container */
+  padding-top: 12px;
+}
 
+/* RouterLink styling */
+.content a {
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  height: 100%;
+  width: 100%;
+}
 
+/* Hover effects */
+.content:hover {
+  transform: translateY(-150px) scale(1.02); /* Maintain position while adding scale */
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
 
+.left:hover {
+  transform: translateY(150px) scale(1.02); /* Maintain position while adding scale */
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+/* Add connection dots on the timeline */
+.content::after {
+  content: '';
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  background-color: #3E3D3D;
+  border-radius: 50%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+}
+
+.right::after {
+  bottom: -158px; /* Position dot on timeline for items above */
+}
+
+.left::after {
+  top: -158px; /* Position dot on timeline for items below */
+}
 
 body {
   overflow-x: auto;
