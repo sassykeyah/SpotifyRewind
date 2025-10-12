@@ -3,10 +3,10 @@ import { RouterLink, RouterView } from 'vue-router'
 </script>
 <!--main page header and content organisation-->
 <style>
-@import url("https://use.typekit.net/bfl6rmj.css");
+@import url('https://use.typekit.net/bfl6rmj.css');
 </style>
 <style>
-@import url("https://use.typekit.net/bfl6rmj.css");
+@import url('https://use.typekit.net/bfl6rmj.css');
 </style>
 
 <template>
@@ -16,7 +16,6 @@ import { RouterLink, RouterView } from 'vue-router'
         <a href="#default" class="logo">Spotify Rewind</a>
         <RouterLink to="/">Home</RouterLink>
       </div>
-
     </nav>
   </header>
   <div class="content">
@@ -30,7 +29,7 @@ import { RouterLink, RouterView } from 'vue-router'
   top: 10px;
   left: 50%;
   transform: translateX(-50%);
-  background-color: #C0C6B8;
+  background-color: #c0c6b8;
   padding: 20px 10px;
   z-index: 100;
   width: auto;
@@ -40,7 +39,7 @@ import { RouterLink, RouterView } from 'vue-router'
   align-items: center;
   justify-content: center;
   border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 }
 
 /* Style the header links */
@@ -52,19 +51,15 @@ import { RouterLink, RouterView } from 'vue-router'
   font-size: 18px;
   line-height: 25px;
   border-radius: 4px;
-  font-family: "mundial", sans-serif;
-  font-weight: 400;
-  font-style: normal;
+  font-family: 'new-kansas', sans-serif;
+  font-weight: bold;
 }
 
 /* Style the logo link (notice that we set the same value of line-height and font-size to prevent the header to increase when the font gets bigger */
 .header a.logo {
   font-size: 25px;
-
-  font-family: "gambado-sans-forte", sans-serif;
-  font-weight: 700;
-  font-style: normal;
-
+  font-family: 'new-kansas', sans-serif;
+  font-weight: bold;
 }
 
 /* Change the background color on mouse-over */
