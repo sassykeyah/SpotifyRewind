@@ -48,9 +48,7 @@ export default {
 <template>
   <div class="item">
     <!-- Add this line to display title from events using trackId -->
-    <p>{{ getEventByTrackId(this.id)?.year }}</p>
-    <p>{{ getEventByTrackId(this.id)?.title }}</p>
-    <p>{{ getEventByTrackId(this.id)?.description }}</p>
+    
     
     <!-- Loading state -->
     <div v-if="isLoading" class="loading">
@@ -69,8 +67,11 @@ export default {
       <h3>{{ track.name }}</h3>
       <p class="artist">by {{ track.artists && track.artists[0] ? track.artists[0].name : 'Unknown Artist' }}</p>
       <p class="album">Album: {{ track.album ? track.album.name : 'Unknown Album' }}</p>
-      <p class="release-date">Released: {{ track.album ? track.album.release_date : 'Unknown' }}</p>
       
+      <p>{{ getEventByTrackId(this.id)?.year }}</p>
+    <p>{{ getEventByTrackId(this.id)?.title }}</p>
+    <p>{{ getEventByTrackId(this.id)?.description }}</p>
+    
       
       <!-- Spotify link -->
       <a v-if="track.external_urls && track.external_urls.spotify" 
@@ -85,13 +86,16 @@ export default {
 
 <style scoped>
 .item {
-  margin-top: 100px;
-  color: #3e3d3d;
+  margin-top: 6.25em; 
+  color: black; 
+  font-family: "new-kansas", sans-serif; 
+  font-weight: 400;
+  font-style: normal;
 }
 
 .loading, .error {
   text-align: center;
-  padding: 20px;
+  padding: 1.25em; 
 }
 
 .error {
@@ -99,13 +103,15 @@ export default {
 }
 
 .error button {
-  margin-top: 10px;
-  padding: 8px 16px;
+  margin-top: 0.625em; 
+  padding: 0.5em 1em; 
   background-color: #3e3d3d;
   color: white;
   border: none;
-  border-radius: 4px;
+  border-radius: 0.25em; 
   cursor: pointer;
+  font-family: "new-kansas", sans-serif;
+  transition: background-color 0.3s ease;
 }
 
 .error button:hover {
@@ -114,58 +120,83 @@ export default {
 
 .track-details {
   text-align: center;
+  max-width: 37.5em; 
+  margin: 0 auto;
+  padding: 2em; 
+  background: linear-gradient(0deg,rgba(235, 143, 143, 1) 0%, rgba(245, 125, 125, 1) 31%, rgba(255, 210, 148, 1) 100%);
+  border-radius: 1.5em; 
+  box-shadow: 0 0.25em 0.75em rgba(0, 0, 0, 0.15); 
 }
 
 .track-details img {
-  padding-top: 20px;
-  max-width: 300px;
-  height: auto;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  padding-top: 1.25em; 
+  max-width: 15.625em; 
+  height: 15.625em; 
+  object-fit: cover;
+  border-radius: 0.75em; 
+  box-shadow: 0 0.25em 0.75em rgba(0, 0, 0, 0.15); 
+  margin-bottom: 1em;
 }
 
 .track-details h3 {
-  font-size: 2rem;
-  margin: 20px 0 10px 0;
-  color: #2c2c2c;
+  font-size: 2.2rem; 
+  font-weight: bold; 
+  margin: 0.5em 0 0.375em 0; 
+  color: black; 
 }
 
 .artist {
-  font-size: 1.5rem;
-  font-weight: 600;
-  margin: 10px 0;
-  color: #4a4a4a;
+  font-size: 1.4em; 
+  font-weight: 400; 
+  margin: 0.1875em 0; 
+  color: black; 
 }
 
 .album, .release-date {
-  font-size: 1.2rem;
-  margin: 8px 0;
-  color: #666;
+  font-size: 1.1rem; 
+  font-weight: 400;
+  margin: 0.375em 0 0.75em 0; 
+  color: black; 
+  line-height: 1.4; 
 }
 
 .spotify-link {
   display: inline-block;
-  margin-top: 20px;
-  padding: 12px 24px;
+  margin-top: 1.25em; 
+  padding: 0.75em 1.5em; 
   background-color: #1DB954;
   color: white;
   text-decoration: none;
-  border-radius: 25px;
+  border-radius: 1.56em; 
   font-weight: 600;
+  font-family: "new-kansas", sans-serif; 
   transition: background-color 0.3s ease;
 }
 
 .spotify-link:hover {
   background-color: #1ed760;
+  transform: scale(1.02); 
 }
 
 p {
-  font-size: 20px;
+  font-size: 1.25em; 
+  font-weight: bold; 
+  color: black; 
+  margin: 0.5em 0; 
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 31.25em) { 
+  .item {
+    margin-top: 5em;
+  }
+  
+  .track-details {
+    padding: 1.25em; 
+    margin: 0 1em; 
+  }
+  
   p {
-    font-size: 16px;
+    font-size: 1em; 
   }
   
   .track-details h3 {
@@ -173,11 +204,21 @@ p {
   }
   
   .artist {
-    font-size: 1.2rem;
+    font-size: 1.2em;
   }
   
   .album, .release-date {
     font-size: 1rem;
+  }
+  
+  .track-details img {
+    max-width: 12.5em; 
+    height: 12.5em;
+  }
+  
+  .spotify-link {
+    padding: 0.625em 1.25em; 
+    font-size: 0.9em;
   }
 }
 </style>
