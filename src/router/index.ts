@@ -1,3 +1,11 @@
+/// <reference types="vite/client" />
+
+declare module '*.vue' {
+  import { DefineComponent } from 'vue'
+  const component: DefineComponent<{}, {}, any>
+  export default component
+}
+
 import { createRouter, createWebHistory } from 'vue-router'
 
 const router = createRouter({
@@ -17,6 +25,7 @@ const router = createRouter({
       component: () => import('@/components/Details.vue'),
       props: true
     }
+    
   ]
 })
 

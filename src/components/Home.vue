@@ -108,7 +108,7 @@ export default {
         v-for="(track, i) in tracks"
         :key="track.id"
         :class="i % 2 === 0 ? 'right' : 'left'"
-      >
+      >  <RouterLink :to="{ name: 'about', params: { id: track.id }}">
         <img :src="track.album.images[0]?.url" alt="Album Cover" />
         <h2>{{ track.year }}</h2> <!-- Use historical year from array -->
         <h3>{{ track.title }}</h3>
@@ -117,6 +117,7 @@ export default {
           <h5>{{ track.name }}</h5>
           <h5>by {{ track.artists[0].name }}</h5>
         </div>
+        </RouterLink>
       </div>
     </div>
   </div>
