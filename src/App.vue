@@ -26,38 +26,51 @@ import { RouterLink, RouterView } from 'vue-router'
 <style scoped>
 .header {
   position: fixed;
-  top: 10px;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: #c0c6b8;
-  padding: 20px 10px;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  background: #75dff0;
+background: #eb8f8f;
+background: linear-gradient(0deg,rgba(235, 143, 143, 1) 0%, rgba(245, 125, 125, 1) 31%, rgba(255, 210, 148, 1) 100%);
+  padding: 1.25em 2.5em; 
   z-index: 100;
-  width: auto;
-  min-width: 200px;
-  max-width: 90vw;
   display: flex;
   align-items: center;
-  justify-content: center;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  justify-content: space-between; /* Space between logo and nav link */
+  box-shadow: none; /* Remove hard shadow for smoother fade */
+}
+
+/* Add fade effect to bottom of header */
+.header::after {
+  content: '';
+  position: absolute;
+  bottom: -1.25em; 
+  left: 0;
+  width: 100%;
+  height: 2.5em; 
+  background: linear-gradient(to bottom, 
+   
+    rgba(255, 210, 148, 0) 100%);
+  pointer-events: none;
+  z-index: -1;
 }
 
 /* Style the header links */
 .header a {
   color: black;
   text-align: center;
-  padding: 12px;
+  padding: 0.75em; /* Converted from 12px */
   text-decoration: none;
-  font-size: 18px;
-  line-height: 25px;
-  border-radius: 4px;
+  font-size: 2em; /* Converted from 18px */
+  line-height: 1.39; /* Converted from 25px (25/18 = 1.39) */
+  border-radius: 0.25em; /* Converted from 4px */
   font-family: 'new-kansas', sans-serif;
   font-weight: bold;
 }
 
-/* Style the logo link (notice that we set the same value of line-height and font-size to prevent the header to increase when the font gets bigger */
+/* Style the logo link */
 .header a.logo {
-  font-size: 25px;
+  font-size: 2em; /* Converted from 25px */
   font-family: 'new-kansas', sans-serif;
   font-weight: bold;
 }
@@ -80,21 +93,21 @@ import { RouterLink, RouterView } from 'vue-router'
 }
 
 /* Add media queries for responsiveness - when the screen is 500px wide or less, stack the links on top of each other */
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 31.25em) { /* Converted from 500px */
   .header {
     flex-direction: column;
-    padding: 10px 5px;
-    min-width: 120px;
+    padding: 0.625em 0.3125em; /* Converted from 10px 5px */
+    min-width: 7.5em; /* Converted from 120px */
     max-width: 98vw;
   }
   .header a {
-    font-size: 12px;
-    padding: 8px;
+    font-size: 0.75em; /* Converted from 12px */
+    padding: 0.5em; /* Converted from 8px */
   }
   .header a.logo {
-    font-size: 18px;
+    font-size: 1.125em; /* Converted from 18px */
     font-weight: bold;
-    margin-bottom: 4px;
+    margin-bottom: 0.25em; /* Converted from 4px */
   }
 }
 </style>

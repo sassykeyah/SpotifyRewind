@@ -101,7 +101,7 @@ img {
 .timeline {
   position: relative;
   width: 100vw;
-  margin: 200px auto 0 auto; /* Increased top margin for alternating layout */
+  margin: 100px auto 0 auto; /* Reduced top margin to move timeline up */
   min-height: 600px; /* Increased to accommodate alternating blocks */
   overflow: visible;
   font-family: "new-kansas", sans-serif;
@@ -123,13 +123,15 @@ font-style: normal;
   min-width: 100vw;
 }
 
-/* Timeline line using pseudo-element on content container */
+/* Timeline line using pseudo-element on content container - wavy version */
 .timeline-content::before {
   content: '';
   position: absolute;
-  height: 6px;
+  height: 60px; /* Increased height for taller waves */
   width: 100%;
-  background-color: #3E3D3D;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 60'%3E%3Cpath d='M0 30 Q150 5 300 30 T600 30 T900 30 T1200 30' stroke='black' stroke-width='30' fill='none'/%3E%3C/svg%3E");
+  background-repeat: repeat-x;
+  background-size: 400px 60px; /* Adjust wave frequency with new height */
   left: 0;
   top: 50%;
   transform: translateY(-50%);
@@ -146,10 +148,11 @@ font-style: normal;
   max-height: 650px;
   flex-shrink: 0;
   flex-grow: 0;
-  background-color: #C0C6B8;
+ background: #eb8f8f;
+background: linear-gradient(0deg,rgba(235, 143, 143, 1) 0%, rgba(245, 125, 125, 1) 31%, rgba(255, 210, 148, 1) 100%);
   position: relative;
   border-radius: 24px; /* Slightly smaller radius */
-  color: #3E3D3D;
+  color: black;
   padding: 32px; /* Reduced padding */
   display: flex;
   flex-direction: column;
@@ -178,7 +181,7 @@ font-style: normal;
   font-size: 2.2rem; /* Further reduced for smaller blocks */
   font-weight: bold;
   margin: 8px 0 6px 0;
-  color: #2E2E2E;
+  color: black;
   text-align: center;
 }
 
@@ -186,7 +189,7 @@ font-style: normal;
   font-size: 1.4rem; /* Reduced for better fit */
   font-weight: 600;
   margin: 6px 0 8px 0;
-  color: #3E3D3D;
+ color: black;
   text-align: center;
   line-height: 1.3;
 }
@@ -195,7 +198,7 @@ font-style: normal;
   font-size: 1.1rem; /* Reduced for smaller blocks */
   font-weight: 400;
   margin: 6px 0 12px 0;
-  color: #4E4E4E;
+  color: black;
   text-align: center;
   line-height: 1.4;
   max-height: 80px; /* Limit height to prevent overflow */
@@ -203,10 +206,10 @@ font-style: normal;
 }
 
 .content h5 { 
-  font-size: 1.0rem; /* Reduced font size */
+  font-size: 1.4em; /* Reduced font size */
   font-weight: 400;
   margin: 3px 0;
-  color: #5E5E5E;
+  color: black;
   text-align: center;
   display: block;
 }
