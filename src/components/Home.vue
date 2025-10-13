@@ -64,6 +64,20 @@ export default {
 
 <template>
   <div class="timeline">
+    <!-- Animated Background Shapes -->
+    <div class="animated-background">
+      <div class="shape circle-1"></div>
+      <div class="shape circle-2"></div>
+      <div class="shape triangle-1"></div>
+      <div class="shape triangle-2"></div>
+      <div class="shape square-1"></div>
+      <div class="shape square-2"></div>
+      <div class="shape diamond-1"></div>
+      <div class="shape diamond-2"></div>
+      <div class="shape hexagon-1"></div>
+      <div class="shape line-1"></div>
+      <div class="shape line-2"></div>
+    </div>
     <div class="timeline-content">
       <div
         class="content"
@@ -87,10 +101,11 @@ export default {
 
 <style scoped>
 
-/* album art styling - properly sized image */
+/* album art styling - responsive sized image */
 img {
-  width: 250px; /* Reduced size to fit better */
-  height: 250px;
+  width: 200px;
+  height: 200px;
+  max-width: 100%;
   object-fit: cover;
   border-radius: 12px;
   margin-bottom: 16px;
@@ -101,12 +116,261 @@ img {
 .timeline {
   position: relative;
   width: 100vw;
-  margin: 100px auto 0 auto; /* Reduced top margin to move timeline up */
-  min-height: 600px; /* Increased to accommodate alternating blocks */
+  margin: 100px auto 0 auto;
+  min-height: 600px;
   overflow: visible;
   font-family: "new-kansas", sans-serif;
-font-weight: 400;
-font-style: normal;
+  font-weight: 400;
+  font-style: normal;
+}
+
+/* Animated Background Container */
+.animated-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: -1;
+  overflow: hidden;
+  background: linear-gradient(135deg, rgba(249, 202, 147) 0%,  rgb(209, 97, 97) 75%);
+}
+
+/* Base shape styling */
+.shape {
+  position: absolute;
+  opacity: 0.6;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+/* Circle shapes */
+.circle-1 {
+  width: 80px;
+  height: 80px;
+  background: #ff6b6b;
+  border-radius: 50%;
+  top: 20%;
+  left: 10%;
+  animation: float-1 8s infinite, rotate 20s infinite linear;
+}
+
+.circle-2 {
+  width: 120px;
+  height: 120px;
+  background: #4ecdc4;
+  border-radius: 50%;
+  top: 60%;
+  right: 15%;
+  animation: float-2 12s infinite, rotate-reverse 25s infinite linear;
+}
+
+/* Triangle shapes */
+.triangle-1 {
+  width: 0;
+  height: 0;
+  border-left: 30px solid transparent;
+  border-right: 30px solid transparent;
+  border-bottom: 60px solid #45b7d1;
+  top: 30%;
+  right: 25%;
+  animation: float-3 10s infinite, spin 15s infinite linear;
+}
+
+.triangle-2 {
+  width: 0;
+  height: 0;
+  border-left: 40px solid transparent;
+  border-right: 40px solid transparent;
+  border-bottom: 80px solid #f7b731;
+  bottom: 25%;
+  left: 20%;
+  animation: float-4 14s infinite, spin-reverse 18s infinite linear;
+}
+
+/* Square shapes */
+.square-1 {
+  width: 60px;
+  height: 60px;
+  background: #5f27cd;
+  top: 15%;
+  right: 35%;
+  animation: float-5 9s infinite, pulse 6s infinite ease-in-out;
+}
+
+.square-2 {
+  width: 90px;
+  height: 90px;
+  background: #00d2d3;
+  bottom: 35%;
+  right: 10%;
+  animation: float-6 11s infinite, pulse 8s infinite ease-in-out;
+}
+
+/* Diamond shapes */
+.diamond-1 {
+  width: 50px;
+  height: 50px;
+  background: #ff9ff3;
+  transform: rotate(45deg);
+  top: 45%;
+  left: 5%;
+  animation: float-7 13s infinite, rotate 22s infinite linear;
+}
+
+.diamond-2 {
+  width: 70px;
+  height: 70px;
+  background: #54a0ff;
+  transform: rotate(45deg);
+  top: 70%;
+  right: 40%;
+  animation: float-8 16s infinite, rotate-reverse 19s infinite linear;
+}
+
+/* Hexagon shape */
+.hexagon-1 {
+  width: 60px;
+  height: 34.64px;
+  background: #feca57;
+  position: relative;
+  top: 25%;
+  left: 30%;
+  animation: float-9 15s infinite, spin 20s infinite linear;
+}
+
+.hexagon-1:before,
+.hexagon-1:after {
+  content: "";
+  position: absolute;
+  width: 0;
+  border-left: 30px solid transparent;
+  border-right: 30px solid transparent;
+}
+
+.hexagon-1:before {
+  bottom: 100%;
+  border-bottom: 17.32px solid #feca57;
+}
+
+.hexagon-1:after {
+  top: 100%;
+  border-top: 17.32px solid #feca57;
+}
+
+/* Line shapes */
+.line-1 {
+  width: 200px;
+  height: 4px;
+  background: #ff6348;
+  top: 40%;
+  right: 5%;
+  animation: float-10 18s infinite, stretch 12s infinite ease-in-out;
+}
+
+.line-2 {
+  width: 150px;
+  height: 6px;
+  background: #2ed573;
+  bottom: 45%;
+  left: 25%;
+  animation: float-11 20s infinite, stretch-reverse 14s infinite ease-in-out;
+}
+
+/* Floating Animations */
+@keyframes float-1 {
+  0%, 100% { transform: translateY(0px) translateX(0px); }
+  50% { transform: translateY(-30px) translateX(20px); }
+}
+
+@keyframes float-2 {
+  0%, 100% { transform: translateY(0px) translateX(0px); }
+  50% { transform: translateY(40px) translateX(-25px); }
+}
+
+@keyframes float-3 {
+  0%, 100% { transform: translateY(0px) translateX(0px); }
+  50% { transform: translateY(-25px) translateX(30px); }
+}
+
+@keyframes float-4 {
+  0%, 100% { transform: translateY(0px) translateX(0px); }
+  50% { transform: translateY(35px) translateX(-20px); }
+}
+
+@keyframes float-5 {
+  0%, 100% { transform: translateY(0px) translateX(0px); }
+  50% { transform: translateY(-40px) translateX(-15px); }
+}
+
+@keyframes float-6 {
+  0%, 100% { transform: translateY(0px) translateX(0px); }
+  50% { transform: translateY(25px) translateX(35px); }
+}
+
+@keyframes float-7 {
+  0%, 100% { transform: rotate(45deg) translateY(0px) translateX(0px); }
+  50% { transform: rotate(45deg) translateY(-30px) translateX(-25px); }
+}
+
+@keyframes float-8 {
+  0%, 100% { transform: rotate(45deg) translateY(0px) translateX(0px); }
+  50% { transform: rotate(45deg) translateY(45px) translateX(20px); }
+}
+
+@keyframes float-9 {
+  0%, 100% { transform: translateY(0px) translateX(0px); }
+  50% { transform: translateY(-35px) translateX(40px); }
+}
+
+@keyframes float-10 {
+  0%, 100% { transform: translateY(0px) translateX(0px); }
+  50% { transform: translateY(30px) translateX(-30px); }
+}
+
+@keyframes float-11 {
+  0%, 100% { transform: translateY(0px) translateX(0px); }
+  50% { transform: translateY(-20px) translateX(25px); }
+}
+
+/* Rotation Animations */
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes rotate-reverse {
+  from { transform: rotate(360deg); }
+  to { transform: rotate(0deg); }
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes spin-reverse {
+  from { transform: rotate(360deg); }
+  to { transform: rotate(0deg); }
+}
+
+/* Pulse Animation */
+@keyframes pulse {
+  0%, 100% { transform: scale(1); opacity: 0.6; }
+  50% { transform: scale(1.2); opacity: 0.8; }
+}
+
+/* Stretch Animations */
+@keyframes stretch {
+  0%, 100% { transform: scaleX(1); }
+  50% { transform: scaleX(1.5); }
+}
+
+@keyframes stretch-reverse {
+  0%, 100% { transform: scaleY(1); }
+  50% { transform: scaleY(1.8); }
 }
 
 /* content within timeline (horizontal) */
@@ -140,26 +404,25 @@ font-style: normal;
 
 /* content block (styling each background(block) of content) */
 .content {
-  width: 600px; /* Reduced from 900px */
-  height: 650px; /* Reduced from 900px */
-  min-width: 600px;
-  max-width: 600px;
-  min-height: 650px;
-  max-height: 650px;
+  width: auto;
+  height: auto;
+  min-width: 350px;
+  max-width: 500px;
+  min-height: auto;
+  max-height: none;
   flex-shrink: 0;
   flex-grow: 0;
- background: #eb8f8f;
-background: linear-gradient(0deg,rgba(235, 143, 143, 1) 0%, rgba(245, 125, 125, 1) 31%, rgba(255, 210, 148, 1) 100%);
+  background: #eb8f8f;
+  background: linear-gradient(0deg,rgba(235, 143, 143, 1) 0%, rgba(245, 125, 125, 1) 31%, rgba(255, 210, 148, 1) 100%);
   position: relative;
-  border-radius: 24px; /* Slightly smaller radius */
+  border-radius: 24px;
   color: black;
-  padding: 32px; /* Reduced padding */
+  padding: 32px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
   box-sizing: border-box;
-  overflow: hidden;
   z-index: 2;
   transition: transform 0.3s ease;
 }
@@ -176,39 +439,39 @@ background: linear-gradient(0deg,rgba(235, 143, 143, 1) 0%, rgba(245, 125, 125, 
   margin: 0;
 }
 
-/* Typography - optimized for smaller content blocks */
+/* Typography - responsive to content */
 .content h2 { /* Year */
-  font-size: 2.2rem; /* Further reduced for smaller blocks */
+  font-size: 2.2rem;
   font-weight: bold;
-  margin: 8px 0 6px 0;
+  margin: 12px 0 8px 0;
   color: black;
   text-align: center;
 }
 
 .content h3 { /* Title */
-  font-size: 1.4rem; /* Reduced for better fit */
+  font-size: 1.4rem;
   font-weight: 600;
-  margin: 6px 0 8px 0;
- color: black;
+  margin: 8px 0 12px 0;
+  color: black;
   text-align: center;
   line-height: 1.3;
 }
 
 .content h4 { /* Description */
-  font-size: 1.1rem; /* Reduced for smaller blocks */
+  font-size: 1.4rem;
   font-weight: 400;
-  margin: 6px 0 12px 0;
+  margin: 0 0 16px 0;
   color: black;
   text-align: center;
   line-height: 1.4;
-  max-height: 80px; /* Limit height to prevent overflow */
-  overflow: hidden;
+  word-wrap: break-word;
+  hyphens: auto;
 }
 
 .content h5 { 
-  font-size: 1.4em; /* Reduced font size */
+  font-size: 1.4em;
   font-weight: 400;
-  margin: 3px 0;
+  margin: 6px 0;
   color: black;
   text-align: center;
   display: block;
@@ -216,8 +479,8 @@ background: linear-gradient(0deg,rgba(235, 143, 143, 1) 0%, rgba(245, 125, 125, 
 
 /* Track info container for better spacing */
 .track-info {
-  margin-top: auto; /* Push to bottom of flex container */
-  padding-top: 12px;
+  margin-top: 16px;
+  padding-top: 0;
 }
 
 /* RouterLink styling */
@@ -228,7 +491,6 @@ background: linear-gradient(0deg,rgba(235, 143, 143, 1) 0%, rgba(245, 125, 125, 
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  height: 100%;
   width: 100%;
 }
 
@@ -241,27 +503,6 @@ background: linear-gradient(0deg,rgba(235, 143, 143, 1) 0%, rgba(245, 125, 125, 
 .left:hover {
   transform: translateY(150px) scale(1.02); /* Maintain position while adding scale */
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
-}
-
-/* Add connection dots on the timeline */
-.content::after {
-  content: '';
-  position: absolute;
-  width: 16px;
-  height: 16px;
-  background-color: #3E3D3D;
-  border-radius: 50%;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 3;
-}
-
-.right::after {
-  bottom: -158px; /* Position dot on timeline for items above */
-}
-
-.left::after {
-  top: -158px; /* Position dot on timeline for items below */
 }
 
 body {

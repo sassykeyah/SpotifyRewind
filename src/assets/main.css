@@ -5,7 +5,7 @@
   margin: 0 auto;
   padding: 2rem;
   font-weight: normal;
-  background-color: #e7e2dc;
+  
   place-items: center;
 }
 
@@ -26,6 +26,6 @@ a,
   body {
     display: flex;
     place-items: center;
-    background-color: #e7e2dc;
+    
   }
 }
