@@ -47,6 +47,20 @@ export default {
 
 <template>
   <div class="item">
+    <!-- Animated Background Shapes -->
+    <div class="animated-background">
+      <div class="shape circle-1"></div>
+      <div class="shape circle-2"></div>
+      <div class="shape triangle-1"></div>
+      <div class="shape triangle-2"></div>
+      <div class="shape square-1"></div>
+      <div class="shape square-2"></div>
+      <div class="shape diamond-1"></div>
+      <div class="shape diamond-2"></div>
+      <div class="shape hexagon-1"></div>
+      <div class="shape line-1"></div>
+      <div class="shape line-2"></div>
+    </div>
     <!-- Add this line to display title from events using trackId -->
 
 
@@ -91,6 +105,7 @@ export default {
       <div class="spotify-link-section">
         <a v-if="track.external_urls && track.external_urls.spotify" :href="track.external_urls.spotify" target="_blank"
           class="spotify-link">
+          <img src="/images/SpotifyIcon.jpg" alt="Spotify Logo" class="spotify-logo" />
           Open in Spotify
         </a>
       </div>
@@ -106,6 +121,162 @@ export default {
   font-family: "new-kansas", sans-serif;
   font-weight: 400;
   font-style: normal;
+  position: relative;
+}
+
+/* Animated Background Container */
+.animated-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: -1;
+  overflow: hidden;
+  background: linear-gradient(135deg, rgba(249, 202, 147) 0%,  rgb(209, 97, 97) 75%);
+}
+
+/* Base shape styling */
+.shape {
+  position: absolute;
+  opacity: 0.6;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+/* Circle shapes */
+.circle-1 {
+  width: 80px;
+  height: 80px;
+  background: #ff6b6b;
+  border-radius: 50%;
+  top: 20%;
+  left: 10%;
+  animation: float-1 8s infinite, rotate 20s infinite linear;
+}
+
+.circle-2 {
+  width: 120px;
+  height: 120px;
+  background: #4ecdc4;
+  border-radius: 50%;
+  top: 60%;
+  right: 15%;
+  animation: float-2 12s infinite, rotate-reverse 25s infinite linear;
+}
+
+/* Triangle shapes */
+.triangle-1 {
+  width: 0;
+  height: 0;
+  border-left: 30px solid transparent;
+  border-right: 30px solid transparent;
+  border-bottom: 60px solid #45b7d1;
+  top: 30%;
+  right: 25%;
+  animation: float-3 10s infinite, spin 15s infinite linear;
+}
+
+.triangle-2 {
+  width: 0;
+  height: 0;
+  border-left: 40px solid transparent;
+  border-right: 40px solid transparent;
+  border-bottom: 80px solid #f7b731;
+  bottom: 25%;
+  left: 20%;
+  animation: float-4 14s infinite, spin-reverse 18s infinite linear;
+}
+
+/* Square shapes */
+.square-1 {
+  width: 60px;
+  height: 60px;
+  background: #5f27cd;
+  top: 15%;
+  right: 35%;
+  animation: float-5 9s infinite, pulse 6s infinite ease-in-out;
+}
+
+.square-2 {
+  width: 90px;
+  height: 90px;
+  background: #00d2d3;
+  bottom: 35%;
+  right: 10%;
+  animation: float-6 11s infinite, pulse 8s infinite ease-in-out;
+}
+
+/* Diamond shapes */
+.diamond-1 {
+  width: 50px;
+  height: 50px;
+  background: #ff9ff3;
+  transform: rotate(45deg);
+  top: 45%;
+  left: 5%;
+  animation: float-7 13s infinite, rotate 22s infinite linear;
+}
+
+.diamond-2 {
+  width: 70px;
+  height: 70px;
+  background: #54a0ff;
+  transform: rotate(45deg);
+  top: 70%;
+  right: 40%;
+  animation: float-8 16s infinite, rotate-reverse 19s infinite linear;
+}
+
+/* Hexagon shape */
+.hexagon-1 {
+  width: 60px;
+  height: 34.64px;
+  background: #feca57;
+  position: relative;
+  top: 25%;
+  left: 30%;
+  animation: float-9 15s infinite, spin 20s infinite linear;
+}
+
+.hexagon-1:before,
+.hexagon-1:after {
+  content: "";
+  position: absolute;
+  width: 0;
+  border-left: 30px solid transparent;
+  border-right: 30px solid transparent;
+}
+
+.hexagon-1:before {
+  bottom: 100%;
+  border-bottom: 17.32px solid #feca57;
+}
+
+.hexagon-1:after {
+  top: 100%;
+  border-top: 17.32px solid #feca57;
+}
+
+/* Line shapes */
+.line-1 {
+  width: 200px;
+  height: 4px;
+  background: #ff6348;
+  top: 40%;
+  right: 5%;
+  animation: float-10 18s infinite, stretch 12s infinite ease-in-out;
+}
+
+.line-2 {
+  width: 150px;
+  height: 6px;
+  background: #2ed573;
+  bottom: 45%;
+  left: 25%;
+  animation: float-11 20s infinite, stretch-reverse 14s infinite ease-in-out;
 }
 
 .loading,
@@ -226,17 +397,27 @@ export default {
 }
 
 .spotify-link {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5em;
   margin: 0;
   padding: 1em 2em;
   background-color: #1DB954;
-  color: white;
+  color: black;
   text-decoration: none;
   border-radius: 1.56em;
   font-weight: 600;
   font-family: "new-kansas", sans-serif;
   transition: background-color 0.3s ease;
   font-size: 1.2rem;
+}
+
+.spotify-logo {
+  width: 24px;
+  height: 24px;
+  object-fit: cover;
+  border-radius: 4px;
 }
 
 .spotify-link:hover {
@@ -263,7 +444,7 @@ p {
   font-size: 1.6rem;
   font-weight: 400;
   color: black;
-  margin: 0.9em 0 0.375em 0;
+  margin: 1.7em 0 0.375em 0;
   line-height: 1.4;
 }
 
@@ -271,7 +452,7 @@ p {
   font-size: 1.4rem;
   font-weight: 400;
   color: black;
-  margin: 0 0 0.75em 0;
+  margin: 0.9em 0 0.75em 0;
   line-height: 1.4;
 }
 
@@ -362,5 +543,99 @@ p {
   .caption {
     font-size: 1rem;
   }
+}
+
+/* Floating Animations */
+@keyframes float-1 {
+  0%, 100% { transform: translateY(0px) translateX(0px); }
+  50% { transform: translateY(-30px) translateX(20px); }
+}
+
+@keyframes float-2 {
+  0%, 100% { transform: translateY(0px) translateX(0px); }
+  50% { transform: translateY(40px) translateX(-25px); }
+}
+
+@keyframes float-3 {
+  0%, 100% { transform: translateY(0px) translateX(0px); }
+  50% { transform: translateY(-25px) translateX(30px); }
+}
+
+@keyframes float-4 {
+  0%, 100% { transform: translateY(0px) translateX(0px); }
+  50% { transform: translateY(35px) translateX(-20px); }
+}
+
+@keyframes float-5 {
+  0%, 100% { transform: translateY(0px) translateX(0px); }
+  50% { transform: translateY(-40px) translateX(-15px); }
+}
+
+@keyframes float-6 {
+  0%, 100% { transform: translateY(0px) translateX(0px); }
+  50% { transform: translateY(25px) translateX(35px); }
+}
+
+@keyframes float-7 {
+  0%, 100% { transform: rotate(45deg) translateY(0px) translateX(0px); }
+  50% { transform: rotate(45deg) translateY(-30px) translateX(-25px); }
+}
+
+@keyframes float-8 {
+  0%, 100% { transform: rotate(45deg) translateY(0px) translateX(0px); }
+  50% { transform: rotate(45deg) translateY(45px) translateX(20px); }
+}
+
+@keyframes float-9 {
+  0%, 100% { transform: translateY(0px) translateX(0px); }
+  50% { transform: translateY(-35px) translateX(40px); }
+}
+
+@keyframes float-10 {
+  0%, 100% { transform: translateY(0px) translateX(0px); }
+  50% { transform: translateY(30px) translateX(-30px); }
+}
+
+@keyframes float-11 {
+  0%, 100% { transform: translateY(0px) translateX(0px); }
+  50% { transform: translateY(-20px) translateX(25px); }
+}
+
+/* Rotation Animations */
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes rotate-reverse {
+  from { transform: rotate(360deg); }
+  to { transform: rotate(0deg); }
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes spin-reverse {
+  from { transform: rotate(360deg); }
+  to { transform: rotate(0deg); }
+}
+
+/* Pulse Animation */
+@keyframes pulse {
+  0%, 100% { transform: scale(1); opacity: 0.6; }
+  50% { transform: scale(1.2); opacity: 0.8; }
+}
+
+/* Stretch Animations */
+@keyframes stretch {
+  0%, 100% { transform: scaleX(1); }
+  50% { transform: scaleX(1.5); }
+}
+
+@keyframes stretch-reverse {
+  0%, 100% { transform: scaleY(1); }
+  50% { transform: scaleY(1.8); }
 }
 </style>
