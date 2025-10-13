@@ -2,7 +2,7 @@
 export const events = [
   { year: 1956, description: 'Australia hosts its first Olympics. Coinciding with televisions national release.', title: 'Melbourne hosts the Olympic Games.', trackId: '46dHcg4e6XNhpYIHHDeC9f' },
   { year: 1962, description: 'Parliament passes an act, allowing First Nations people to enroll and vote in federal elections.', title: 'Indigenous Australians granted the right to vote.', trackId: '7ouMYWpwJ422jRcDASZB7P' },
-  { year: 1966, description: 'Australia begins transition from pounds to dollars.', title: 'Decimal currency is introduced.', trackId: '2PneNdtypG6XcgmWmGd9FI' },
+  { year: 1966, description: 'Australia begins transition from pounds to dollars.', title: 'Decimal currency is introduced.', imageUrl: '/images/DecimalCurrency.jpg', imageAlt: 'Decimal Currency', trackId: '2PneNdtypG6XcgmWmGd9FI' },
   { year: 1967, description: '90% of Australians vote to include Indigenous Australians in the census.', title: 'Referendum on Indigenous Australians rights.', trackId: '0eGsygTp906u18L0Oimnem' },
   { year: 1974, description: 'Destroying 80% of the city and killing 66 people.', title: 'Cyclone Tracy hit Darwin on Christmas Day.', trackId: '0eGsygTp906u18L0Oimnem' },
   { year: 1975, description: 'First and only Governor-General dismissal of Government.', title: 'Prime Minister Gough Whitlam is dismissed.', trackId: '0eGsygTp906u18L0Oimnem' },

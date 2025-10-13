@@ -71,7 +71,8 @@ export default {
       <p>{{ getEventByTrackId(this.id)?.year }}</p>
     <p>{{ getEventByTrackId(this.id)?.title }}</p>
     <p>{{ getEventByTrackId(this.id)?.description }}</p>
-    
+    <!-- In any Vue component -->
+<img :src="getEventByTrackId(this.id)?.imageUrl" :alt="getEventByTrackId(this.id)?.imageAlt" />
       
       <!-- Spotify link -->
       <a v-if="track.external_urls && track.external_urls.spotify" 
