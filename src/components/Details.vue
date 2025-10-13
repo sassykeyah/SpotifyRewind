@@ -72,7 +72,7 @@ export default {
     <p>{{ getEventByTrackId(this.id)?.title }}</p>
     <p>{{ getEventByTrackId(this.id)?.description }}</p>
     <img :src="getEventByTrackId(this.id)?.imageUrl" :alt="getEventByTrackId(this.id)?.imageAlt" />
-      
+      <p>{{ getEventByTrackId(this.id)?.caption }}</p>
       <!-- Spotify link -->
       <a v-if="track.external_urls && track.external_urls.spotify" 
          :href="track.external_urls.spotify" 
