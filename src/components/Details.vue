@@ -13,6 +13,13 @@ export default {
       error: null
     }
   },
+  computed: {
+    spotifyIconUrl() {
+      // Use the same approach as events.js getImagePath function
+      const baseUrl = import.meta.env.BASE_URL || '/'
+      return baseUrl + 'images/SpotifyIcon.jpg'
+    }
+  },
   async mounted() {
     await this.getAccessToken()
     await this.fetchTrack()
@@ -109,7 +116,7 @@ export default {
       <div class="spotify-link-section">
         <a v-if="track.external_urls && track.external_urls.spotify" :href="track.external_urls.spotify" target="_blank"
           class="spotify-link">
-          <img src="/images/SpotifyIcon.jpg" alt="Spotify Logo" class="spotify-logo" />
+          <img :src="spotifyIconUrl" alt="Spotify Logo" class="spotify-logo" />
           Open in Spotify
         </a>
       </div>

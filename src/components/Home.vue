@@ -114,7 +114,7 @@ export default {
 
 <style scoped>
 
-/* album art styling - responsive sized image */
+
 img {
   width: 200px;
   height: 200px;
@@ -125,7 +125,7 @@ img {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
-/* container for timeline (centers and sets max width)*/
+
 .timeline {
   position: relative;
   width: 100vw;
@@ -137,7 +137,7 @@ img {
   font-style: normal;
 }
 
-/* Animated Background Container */
+
 .animated-background {
   position: fixed;
   top: 0;
@@ -150,7 +150,7 @@ img {
   background: linear-gradient(135deg, rgba(249, 202, 147) 0%,  rgb(209, 97, 97) 75%);
 }
 
-/* Base shape styling */
+
 .shape {
   position: absolute;
   opacity: 0.6;
@@ -159,7 +159,7 @@ img {
   animation-direction: alternate;
 }
 
-/* Circle shapes */
+
 .circle-1 {
   width: 80px;
   height: 80px;
@@ -180,7 +180,7 @@ img {
   animation: float-2 12s infinite, rotate-reverse 25s infinite linear;
 }
 
-/* Triangle shapes */
+
 .triangle-1 {
   width: 0;
   height: 0;
@@ -203,7 +203,7 @@ img {
   animation: float-4 14s infinite, spin-reverse 18s infinite linear;
 }
 
-/* Square shapes */
+
 .square-1 {
   width: 60px;
   height: 60px;
@@ -222,7 +222,7 @@ img {
   animation: float-6 11s infinite, pulse 8s infinite ease-in-out;
 }
 
-/* Diamond shapes */
+
 .diamond-1 {
   width: 50px;
   height: 50px;
@@ -243,7 +243,7 @@ img {
   animation: float-8 16s infinite, rotate-reverse 19s infinite linear;
 }
 
-/* Hexagon shape */
+
 .hexagon-1 {
   width: 60px;
   height: 34.64px;
@@ -273,7 +273,7 @@ img {
   border-top: 17.32px solid #feca57;
 }
 
-/* Line shapes */
+
 .line-1 {
   width: 200px;
   height: 4px;
@@ -386,36 +386,36 @@ img {
   50% { transform: scaleY(1.8); }
 }
 
-/* content within timeline (horizontal) */
+
 .timeline-content {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
-  align-items: center; /* This centers relative to the timeline line */
+  align-items: center; 
   position: relative;
-  gap: 80px; /* Slightly reduced gap */
+  gap: 80px; 
   padding: 0 80px;
   z-index: 1;
   width: max-content;
   min-width: 100vw;
 }
 
-/* Timeline line using pseudo-element on content container - wavy version */
+
 .timeline-content::before {
   content: '';
   position: absolute;
-  height: 60px; /* Increased height for taller waves */
+  height: 60px; 
   width: 100%;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 60'%3E%3Cpath d='M0 30 Q150 5 300 30 T600 30 T900 30 T1200 30' stroke='black' stroke-width='30' fill='none'/%3E%3C/svg%3E");
   background-repeat: repeat-x;
-  background-size: 400px 60px; /* Adjust wave frequency with new height */
+  background-size: 400px 60px; 
   left: 0;
   top: 50%;
   transform: translateY(-50%);
   z-index: 0;
 }
 
-/* content block (styling each background(block) of content) */
+
 .content {
   width: auto;
   height: auto;
@@ -440,20 +440,20 @@ img {
   transition: transform 0.3s ease;
 }
 
-/* Alternating layout - even items above the line */
+
 .right {
-  transform: translateY(-150px); /* Move above the timeline */
+  transform: translateY(-150px); 
   margin: 0;
 }
 
-/* Alternating layout - odd items below the line */
+
 .left {
-  transform: translateY(150px); /* Move below the timeline */
+  transform: translateY(150px); 
   margin: 0;
 }
 
-/* Typography - responsive to content */
-.content h2 { /* Year */
+
+.content h2 { 
   font-size: 2.2rem;
   font-weight: bold;
   margin: 12px 0 8px 0;
@@ -461,7 +461,7 @@ img {
   text-align: center;
 }
 
-.content h3 { /* Title */
+.content h3 { 
   font-size: 1.4rem;
   font-weight: 600;
   margin: 8px 0 12px 0;
@@ -470,7 +470,7 @@ img {
   line-height: 1.3;
 }
 
-.content h4 { /* Description */
+.content h4 { 
   font-size: 1.4rem;
   font-weight: 400;
   margin: 0 0 16px 0;
@@ -490,13 +490,13 @@ img {
   display: block;
 }
 
-/* Track info container for better spacing */
+
 .track-info {
   margin-top: 16px;
   padding-top: 0;
 }
 
-/* RouterLink styling */
+
 .content a {
   text-decoration: none;
   color: inherit;
@@ -507,14 +507,14 @@ img {
   width: 100%;
 }
 
-/* Hover effects */
+
 .content:hover {
-  transform: translateY(-150px) scale(1.02); /* Maintain position while adding scale */
+  transform: translateY(-150px) scale(1.02); 
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
 }
 
 .left:hover {
-  transform: translateY(150px) scale(1.02); /* Maintain position while adding scale */
+  transform: translateY(150px) scale(1.02); 
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
 }
 
@@ -554,7 +554,7 @@ body::-webkit-scrollbar-thumb:hover {
   }
 }
 
-/* Desktop/Large Screens (1440px and down) - Only reduce slightly for very large screens */
+/* Desktop/Large Screens (1440px and down) */
 @media screen and (max-width: 90em) and (min-width: 85.51em) {
   .timeline-content {
     gap: 70px;
@@ -601,7 +601,7 @@ body::-webkit-scrollbar-thumb:hover {
   }
 }
 
-/* Laptop Screens (1368px x 912px area) - Optimize for common laptop dimensions */
+/* Laptop Screens (1368px x 912px area)  */
 @media screen and (max-width: 85.5em) and (min-width: 48.01em) {
   .timeline {
     margin: 120px auto 0 auto; 
@@ -641,7 +641,7 @@ body::-webkit-scrollbar-thumb:hover {
   }
   
   img {
-    width: 120px; /* Smaller images */
+    width: 120px; 
     height: 120px;
     margin-bottom: 8px;
     border-radius: 8px;
@@ -651,9 +651,9 @@ body::-webkit-scrollbar-thumb:hover {
     margin-top: 8px;
   }
   
-  /* Adjust vertical positioning for laptop - closer to timeline */
+  
   .right {
-    transform: translateY(-80px); /* Much closer to timeline */
+    transform: translateY(-80px); 
   }
   
   .left {
@@ -668,13 +668,13 @@ body::-webkit-scrollbar-thumb:hover {
     transform: translateY(80px) scale(1.02);
   }
   
-  /* Reduce timeline line thickness for laptop */
+  
   .timeline-content::before {
     height: 50px;
     background-size: 350px 50px;
   }
   
-  /* Reduce animated shapes for performance */
+  
   .circle-1 {
     width: 60px;
     height: 60px;
@@ -726,7 +726,7 @@ body::-webkit-scrollbar-thumb:hover {
   }
 }
 
-/* Tablet/Medium Screens (768px and down) - Switch to vertical timeline */
+/* Tablet/Medium Screens (768px and down)  */
 @media screen and (max-width: 48em) {
   .timeline {
     margin: 100px auto 0 auto; 

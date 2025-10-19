@@ -1,7 +1,10 @@
 // Helper function to get the correct image path based on environment
 const getImagePath = (imagePath) => {
-  // Use absolute path - Vite will handle the base URL automatically
-  return `/${imagePath.replace(/^\//, '')}`
+  // Clean the path by removing leading slash
+  const cleanPath = imagePath.replace(/^\//, '')
+  // In development, BASE_URL is '/', in production it's '/SpotifyRewind/'
+  const baseUrl = import.meta.env.BASE_URL || '/'
+  return baseUrl + cleanPath
 }
 
 // Australian Historical Events Data
