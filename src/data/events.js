@@ -1,8 +1,8 @@
 // Australian Historical Events Data
 // Helper function to get the correct image path with base URL
 const getImageUrl = (imagePath) => {
-  // In production, this will be '/SpotifyRewind/', in development it will be '/'
-  return `${import.meta.env.BASE_URL}images/${imagePath}`
+  // For GitHub Pages, use the repository name as base path
+  return `/SpotifyRewind/images/${imagePath}`
 }
 
 export const events = [
