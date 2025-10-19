@@ -87,17 +87,21 @@ export default {
         <!-- Event Data Column -->
         <div class="event-column">
           <img :src="getEventByTrackId(this.id)?.imageUrl" :alt="getEventByTrackId(this.id)?.imageAlt" class="event-image" />
-          <p class="event-title">{{ getEventByTrackId(this.id)?.title }}</p>
-          <p class="description">{{ getEventByTrackId(this.id)?.description }}</p>
-          <p class="caption">{{ getEventByTrackId(this.id)?.caption }}</p>
+          <div class="event-info">
+            <p class="event-title">{{ getEventByTrackId(this.id)?.title }}</p>
+            <p class="description">{{ getEventByTrackId(this.id)?.description }}</p>
+            <p class="caption">{{ getEventByTrackId(this.id)?.caption }}</p>
+          </div>
         </div>
 
         <!-- Spotify Data Column -->
         <div class="spotify-column">
           <img :src="track.album && track.album.images[0] ? track.album.images[0].url : ''" :alt="track.name" class="spotify-image" />
-          <h3>{{ track.name }}</h3>
-          <p class="artist">by {{ track.artists && track.artists[0] ? track.artists[0].name : 'Unknown Artist' }}</p>
-          <p class="album">Album: {{ track.album ? track.album.name : 'Unknown Album' }}</p>
+          <div class="spotify-info">
+            <h3>{{ track.name }}</h3>
+            <p class="artist">by {{ track.artists && track.artists[0] ? track.artists[0].name : 'Unknown Artist' }}</p>
+            <p class="album">Album: {{ track.album ? track.album.name : 'Unknown Album' }}</p>
+          </div>
         </div>
       </div>
       
@@ -456,7 +460,8 @@ p {
   line-height: 1.4;
 }
 
-@media screen and (max-width: 90em) {
+/* Desktop/Large Screens (1440px and down) - Only reduce slightly for very large screens */
+@media screen and (max-width: 90em) and (min-width: 85.51em) {
   .track-details {
     max-width: 65em;
   }
@@ -466,82 +471,490 @@ p {
   }
 }
 
-@media screen and (max-width: 50em) {
-  .two-column-layout {
-    grid-template-columns: 1fr;
-    gap: 3em;
+/* Laptop Screens (1368px x 912px area) */
+@media screen and (max-width: 85.5em) and (min-width: 48.01em) {
+  .item {
+    margin-top: 6em; 
   }
   
   .track-details {
-    max-width: 37.5em;
+    padding: 1.5em; 
+    margin-bottom: 1.5em; 
+  }
+  
+  .year-section {
+    margin-bottom: 1em; 
+  }
+  
+  .year {
+    font-size: 2.8rem; 
+  }
+  
+  .track-details h3 {
+    font-size: 1.8rem; 
+    margin: 0 0 0.2em 0;
+  }
+  
+  .event-title {
+    font-size: 1.8rem; 
+    margin: 0.1em 0 0.2em 0;
+  }
+  
+  .artist {
+    font-size: 1.3em;
+    margin: 0.2em 0 0.6em 0; 
+  }
+  
+  .description {
+    font-size: 1.1rem; 
+    margin: 0.8em 0 0.2em 0; 
+    line-height: 1.25; 
+  }
+  
+  .caption {
+    font-size: 1rem;
+    margin: 0.4em 0 0.3em 0; 
+    line-height: 1.25;
+  }
+  
+  .album,
+  .release-date {
+    font-size: 1rem; 
+    margin: 0 0 0.3em 0; 
+    line-height: 1.25;
+  }
+  
+  .spotify-image,
+  .event-image {
+    max-width: 14em; 
+    height: 14em;
+    margin-bottom: 0.8em; 
+  }
+  
+  .spotify-link-section {
+    margin-top: 1em; 
+    margin-bottom: 1em; 
+  }
+  
+  .spotify-link {
+    padding: 0.7em 1.4em; 
+    font-size: 1rem;
+  }
+  
+  .two-column-layout {
+    gap: 6em; 
   }
 }
 
-@media screen and (max-width: 31.25em) {
+/* Tablet/Medium Screens (768px and down) */
+@media screen and (max-width: 48em) {
   .item {
-    margin-top: 5em;
+    margin-top: 7em; 
   }
 
   .track-details {
-    padding: 1.25em;
-    margin: 0 1em;
-    max-width: none;
+    max-width: 40em;
+    padding: 1.5em; 
+    margin: 0 1.5em 2em 1.5em; 
   }
 
   .two-column-layout {
-    gap: 1.5em;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5em; 
   }
 
-  p {
-    font-size: 1em;
+ 
+  .event-column,
+  .spotify-column {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    text-align: left;
+    gap: 1.2em; 
+  }
+
+  .event-column .event-image,
+  .spotify-column .spotify-image {
+    flex-shrink: 0;
+    max-width: 7em; 
+    height: 7em;
+    margin-bottom: 0;
+  }
+
+  .event-info,
+  .spotify-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .year-section {
+    margin-bottom: 1em; 
+  }
+
+  .year {
+    font-size: 2.2rem; 
   }
 
   .track-details h3 {
-    font-size: 1.5rem;
+    font-size: 1.4rem; 
+    margin: 0 0 0.2em 0;
+  }
+
+  .event-title {
+    font-size: 1.4rem; 
+    margin: 0 0 0.2em 0;
   }
 
   .artist {
-    font-size: 1.2em;
+    font-size: 1.1em;
+    margin: 0.1em 0 0.4em 0; 
+  }
+
+  .description {
+    font-size: 1rem; 
+    margin: 0.5em 0 0.2em 0; 
+    line-height: 1.25; 
+  }
+
+  .caption {
+    font-size: 0.9rem; 
+    margin: 0.2em 0;
+    line-height: 1.25;
   }
 
   .album,
   .release-date {
-    font-size: 1rem;
-  }
-
-  .spotify-image,
-  .event-image {
-    max-width: 12.5em;
-    height: 12.5em;
+    font-size: 0.95rem; 
+    margin: 0.1em 0;
+    line-height: 1.25;
   }
 
   .spotify-link {
-    padding: 0.625em 1.25em;
-    font-size: 0.9em;
-  }
-
-  .year-section {
-    margin-bottom: 1.5em;
-  }
-
-  .year {
-    font-size: 2.5rem;
+    font-size: 1rem; 
+    padding: 0.7em 1.4em; 
   }
 
   .spotify-link-section {
-    margin-top: 1.5em;
+    margin-top: 1.2em; 
+  }
+
+  
+  .circle-1 {
+    width: 60px;
+    height: 60px;
+  }
+
+  .circle-2 {
+    width: 90px;
+    height: 90px;
+  }
+
+  .triangle-1 {
+    border-left: 25px solid transparent;
+    border-right: 25px solid transparent;
+    border-bottom: 50px solid #45b7d1;
+  }
+
+  .triangle-2 {
+    border-left: 30px solid transparent;
+    border-right: 30px solid transparent;
+    border-bottom: 60px solid #f7b731;
+  }
+
+  .square-1 {
+    width: 45px;
+    height: 45px;
+  }
+
+  .square-2 {
+    width: 70px;
+    height: 70px;
+  }
+
+  .diamond-1 {
+    width: 40px;
+    height: 40px;
+  }
+
+  .diamond-2 {
+    width: 55px;
+    height: 55px;
+  }
+
+  .line-1 {
+    width: 120px;
+  }
+
+  .line-2 {
+    width: 100px;
+  }
+}
+
+/* Mobile/Small Screens (480px and down) */
+@media screen and (max-width: 30em) {
+  .item {
+    margin-top: 7.5em;
+  }
+
+  .track-details {
+    padding: 1.2em;
+    margin: 0 0.8em;
+    max-width: none;
+    border-radius: 0.8em;
+  }
+
+  .two-column-layout {
+    gap: 1.8em;
+  }
+
+  
+  .event-column .event-image,
+  .spotify-column .spotify-image {
+    max-width: 6em;
+    height: 6em;
+  }
+
+  .event-column,
+  .spotify-column {
+    gap: 1em;
+  }
+
+  .year-section {
+    margin-bottom: 0.8em;
+  }
+
+  .year {
+    font-size: 2rem;
+  }
+
+  .track-details h3 {
+    font-size: 1.2rem;
+    margin: 0 0 0.2em 0;
   }
 
   .event-title {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
+    margin: 0 0 0.2em 0;
+  }
+
+  .artist {
+    font-size: 0.95em;
+    margin: 0.2em 0 0.5em 0;
   }
 
   .description {
-    font-size: 1rem;
+    font-size: 0.85rem;
+    margin: 0.5em 0 0.2em 0;
+    line-height: 1.2;
   }
 
   .caption {
-    font-size: 1rem;
+    font-size: 0.8rem;
+    margin: 0.3em 0 0.2em 0;
+    line-height: 1.2;
+  }
+
+  .album,
+  .release-date {
+    font-size: 0.85rem;
+    line-height: 1.2;
+    margin: 0.2em 0;
+  }
+
+  .spotify-link {
+    padding: 0.6em 1.2em;
+    font-size: 0.85rem;
+    border-radius: 1em;
+  }
+
+  .spotify-logo {
+    width: 18px;
+    height: 18px;
+  }
+
+  .spotify-link-section {
+    margin-top: 1.2em;
+  }
+
+  
+  .shape.line-1,
+  .shape.line-2,
+  .shape.hexagon-1 {
+    display: none;
+  }
+
+  
+  .circle-1 {
+    width: 40px;
+    height: 40px;
+  }
+
+  .circle-2 {
+    width: 60px;
+    height: 60px;
+  }
+
+  .triangle-1 {
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-bottom: 30px solid #45b7d1;
+  }
+
+  .triangle-2 {
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
+    border-bottom: 40px solid #f7b731;
+  }
+
+  .square-1 {
+    width: 30px;
+    height: 30px;
+  }
+
+  .square-2 {
+    width: 45px;
+    height: 45px;
+  }
+
+  .diamond-1 {
+    width: 25px;
+    height: 25px;
+  }
+
+  .diamond-2 {
+    width: 35px;
+    height: 35px;
+  }
+}
+
+/* Extra Small Mobile Screens (360px and down) */
+@media screen and (max-width: 22.5em) {
+  .item {
+    margin-top: 6.5em;
+  }
+
+  .track-details {
+    padding: 1em;
+    margin: 0 0.5em;
+    border-radius: 0.6em;
+  }
+
+  .two-column-layout {
+    gap: 1.2em;
+  }
+
+  
+  .event-column .event-image,
+  .spotify-column .spotify-image {
+    max-width: 5em;
+    height: 5em;
+  }
+
+  .event-column,
+  .spotify-column {
+    gap: 0.8em;
+  }
+
+  .year-section {
+    margin-bottom: 0.6em;
+  }
+
+  .year {
+    font-size: 1.8rem;
+  }
+
+  .track-details h3 {
+    font-size: 1.1rem;
+    margin: 0 0 0.1em 0;
+  }
+
+  .event-title {
+    font-size: 1.1rem;
+    margin: 0 0 0.1em 0;
+  }
+
+  .artist {
+    font-size: 0.9em;
+    margin: 0.1em 0 0.4em 0;
+  }
+
+  .description {
+    font-size: 0.8rem;
+    margin: 0.4em 0 0.1em 0;
+    line-height: 1.15;
+  }
+
+  .caption {
+    font-size: 0.75rem;
+    margin: 0.2em 0 0.1em 0;
+    line-height: 1.15;
+  }
+
+  .album,
+  .release-date {
+    font-size: 0.8rem;
+    line-height: 1.15;
+    margin: 0.1em 0;
+  }
+
+  .spotify-link {
+    padding: 0.5em 1em;
+    font-size: 0.8rem;
+    border-radius: 0.8em;
+  }
+
+  .spotify-logo {
+    width: 16px;
+    height: 16px;
+  }
+
+  .spotify-link-section {
+    margin-top: 1em;
+  }
+
+  
+  .circle-1 {
+    width: 30px;
+    height: 30px;
+  }
+
+  .circle-2 {
+    width: 45px;
+    height: 45px;
+  }
+
+  .triangle-1 {
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 20px solid #45b7d1;
+  }
+
+  .triangle-2 {
+    border-left: 12px solid transparent;
+    border-right: 12px solid transparent;
+    border-bottom: 24px solid #f7b731;
+  }
+
+  .square-1 {
+    width: 20px;
+    height: 20px;
+  }
+
+  .square-2 {
+    width: 30px;
+    height: 30px;
+  }
+
+  .diamond-1 {
+    width: 18px;
+    height: 18px;
+  }
+
+  .diamond-2 {
+    width: 25px;
+    height: 25px;
   }
 }
 
@@ -554,6 +967,26 @@ p {
 @keyframes float-2 {
   0%, 100% { transform: translateY(0px) translateX(0px); }
   50% { transform: translateY(40px) translateX(-25px); }
+}
+
+/* Ensure desktop layout stays as original for screens larger than laptop range */
+@media screen and (min-width: 85.51em) {
+  .item {
+    margin-top: 8em; /* Ensure year is never hidden on large desktop sizes */
+  }
+
+  .event-column,
+  .spotify-column {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .event-info,
+  .spotify-info {
+    display: contents;
+  }
 }
 
 @keyframes float-3 {

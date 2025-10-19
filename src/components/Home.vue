@@ -25,6 +25,7 @@ export default {
   },
   beforeDestroy() {
     window.removeEventListener('wheel', this.handleScroll)
+    window.removeEventListener('resize', this.handleResize)
   },
   methods: {
     async getAccessToken() {
@@ -48,15 +49,26 @@ export default {
     },
     setupHorizontalScroll() {
       window.addEventListener('wheel', this.handleScroll, { passive: false })
+      window.addEventListener('resize', this.handleResize)
     },
     handleScroll(event) {
-      event.preventDefault() 
-      
-      
-      const scrollAmount = event.deltaY * 0.8
-      
-      
-      window.scrollBy(scrollAmount, 0)
+      // Only prevent default and force horizontal scroll for screens larger than tablet
+      if (window.innerWidth > 768) {
+        event.preventDefault() 
+        const scrollAmount = event.deltaY * 0.8
+        window.scrollBy(scrollAmount, 0)
+      }
+      // For tablet and mobile (768px and below), allow normal vertical scrolling
+    },
+    handleResize() {
+      // Re-enable/disable horizontal scroll based on screen size
+      if (window.innerWidth <= 768) {
+        // For mobile/tablet, ensure we're at the top and allow vertical scroll
+        window.scrollTo({ left: 0, top: 0, behavior: 'smooth' })
+      } else {
+        // For desktop/laptop, restore horizontal position
+        window.scrollTo({ left: 200, top: 0, behavior: 'smooth' })
+      }
     }
   }
 }
@@ -526,6 +538,589 @@ body::-webkit-scrollbar-thumb {
 
 body::-webkit-scrollbar-thumb:hover {
   background: #5E5E5E;
+}
+
+/* Responsive scroll behavior */
+@media screen and (max-width: 48em) {
+  body {
+    overflow-x: hidden; /* Disable horizontal scroll on mobile */
+    overflow-y: auto;   /* Enable vertical scroll on mobile */
+  }
+  
+  body::-webkit-scrollbar {
+    width: 8px;  /* Vertical scrollbar for mobile */
+    height: auto;
+  }
+}
+
+/* Desktop/Large Screens (1440px and down) - Only reduce slightly for very large screens */
+@media screen and (max-width: 90em) and (min-width: 85.51em) {
+  .timeline-content {
+    gap: 70px;
+    padding: 0 70px;
+  }
+  
+  .content {
+    min-width: 350px;
+    max-width: 480px;
+    padding: 30px;
+  }
+  
+  .content h2 { /* Year */
+    font-size: 2.1rem;
+    margin: 10px 0 7px 0;
+  }
+  
+  .content h3 { /* Title */
+    font-size: 1.35rem;
+    margin: 7px 0 10px 0;
+    line-height: 1.3;
+  }
+  
+  .content h4 { /* Description */
+    font-size: 1.35rem;
+    margin: 0 0 14px 0;
+    line-height: 1.4;
+  }
+  
+  .content h5 {
+    font-size: 1.35em;
+    margin: 5px 0;
+  }
+  
+  img {
+    width: 190px;
+    height: 190px;
+    margin-bottom: 14px;
+    border-radius: 11px;
+  }
+  
+  .track-info {
+    margin-top: 14px;
+  }
+}
+
+/* Laptop Screens (1368px x 912px area) - Optimize for common laptop dimensions */
+@media screen and (max-width: 85.5em) and (min-width: 48.01em) {
+  .timeline {
+    margin: 120px auto 0 auto; 
+  }
+  
+  .timeline-content {
+    gap: 40px;
+    padding: 0 40px;
+  }
+  
+  .content {
+    min-width: 240px; 
+    max-width: 300px;
+    padding: 18px; 
+  }
+  
+  .content h2 { /* Year */
+    font-size: 1.5rem; 
+    margin: 6px 0 4px 0;
+  }
+  
+  .content h3 { /* Title */
+    font-size: 1rem;
+    margin: 4px 0 6px 0;
+    line-height: 1.2;
+  }
+  
+  .content h4 { /* Description */
+    font-size: 0.9rem;
+    margin: 0 0 8px 0;
+    line-height: 1.25;
+  }
+  
+  .content h5 {
+    font-size: 0.9em;
+    margin: 3px 0;
+  }
+  
+  img {
+    width: 120px; /* Smaller images */
+    height: 120px;
+    margin-bottom: 8px;
+    border-radius: 8px;
+  }
+  
+  .track-info {
+    margin-top: 8px;
+  }
+  
+  /* Adjust vertical positioning for laptop - closer to timeline */
+  .right {
+    transform: translateY(-80px); /* Much closer to timeline */
+  }
+  
+  .left {
+    transform: translateY(80px);
+  }
+  
+  .content:hover {
+    transform: translateY(-80px) scale(1.02);
+  }
+  
+  .left:hover {
+    transform: translateY(80px) scale(1.02);
+  }
+  
+  /* Reduce timeline line thickness for laptop */
+  .timeline-content::before {
+    height: 50px;
+    background-size: 350px 50px;
+  }
+  
+  /* Reduce animated shapes for performance */
+  .circle-1 {
+    width: 60px;
+    height: 60px;
+  }
+  
+  .circle-2 {
+    width: 90px;
+    height: 90px;
+  }
+  
+  .triangle-1 {
+    border-left: 25px solid transparent;
+    border-right: 25px solid transparent;
+    border-bottom: 50px solid #45b7d1;
+  }
+  
+  .triangle-2 {
+    border-left: 30px solid transparent;
+    border-right: 30px solid transparent;
+    border-bottom: 60px solid #f7b731;
+  }
+  
+  .square-1 {
+    width: 45px;
+    height: 45px;
+  }
+  
+  .square-2 {
+    width: 70px;
+    height: 70px;
+  }
+  
+  .diamond-1 {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .diamond-2 {
+    width: 55px;
+    height: 55px;
+  }
+  
+  .line-1 {
+    width: 150px;
+  }
+  
+  .line-2 {
+    width: 120px;
+  }
+}
+
+/* Tablet/Medium Screens (768px and down) - Switch to vertical timeline */
+@media screen and (max-width: 48em) {
+  .timeline {
+    margin: 100px auto 0 auto; 
+    width: 100%;
+    padding: 0 20px;
+  }
+  
+  .timeline-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px; 
+    padding: 0;
+    width: 100%;
+    min-width: auto;
+  }
+  
+  /* Change timeline to vertical line */
+  .timeline-content::before {
+    content: '';
+    position: absolute;
+    width: 4px;
+    height: 100%;
+    background: black;
+    left: 50%;
+    top: 0;
+    transform: translateX(-50%);
+    z-index: 0;
+  }
+  
+  .content {
+    min-width: 220px;
+    max-width: 280px;
+    padding: 16px; 
+    position: relative;
+    margin: 0;
+  }
+  
+  
+  .right,
+  .left {
+    transform: translateY(0);
+  }
+  
+  .content:hover,
+  .left:hover {
+    transform: scale(1.02);
+  }
+  
+  
+  .content::before {
+    content: '';
+    position: absolute;
+    width: 16px; 
+    height: 16px;
+    background: black;
+    border-radius: 50%;
+    left: 50%;
+    top: -8px;
+    transform: translateX(-50%);
+    z-index: 3;
+  }
+  
+  .content h2 {
+    font-size: 1.4rem; 
+    margin: 4px 0 3px 0;
+  }
+  
+  .content h3 {
+    font-size: 1rem;
+    margin: 3px 0 4px 0;
+  }
+  
+  .content h4 {
+    font-size: 0.9rem;
+    margin: 0 0 8px 0;
+    line-height: 1.2;
+  }
+  
+  .content h5 {
+    font-size: 0.9rem;
+    margin: 2px 0;
+  }
+  
+  img {
+    width: 110px; 
+    height: 110px;
+    margin-bottom: 8px;
+    border-radius: 6px;
+  }
+  
+  .track-info {
+    margin-top: 8px;
+  }
+  
+ 
+  .circle-1 {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .circle-2 {
+    width: 75px;
+    height: 75px;
+  }
+  
+  .triangle-1 {
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
+    border-bottom: 40px solid #45b7d1;
+  }
+  
+  .triangle-2 {
+    border-left: 25px solid transparent;
+    border-right: 25px solid transparent;
+    border-bottom: 50px solid #f7b731;
+  }
+  
+  .square-1 {
+    width: 35px;
+    height: 35px;
+  }
+  
+  .square-2 {
+    width: 55px;
+    height: 55px;
+  }
+  
+  .diamond-1 {
+    width: 30px;
+    height: 30px;
+  }
+  
+  .diamond-2 {
+    width: 45px;
+    height: 45px;
+  }
+  
+  .line-1 {
+    width: 80px;
+  }
+  
+  .line-2 {
+    width: 70px;
+  }
+}
+
+/* Mobile/Small Screens (480px and down) */
+@media screen and (max-width: 30em) {
+  .timeline {
+    margin: 50px auto 0 auto;
+    padding: 0 15px;
+  }
+  
+  .timeline-content {
+    gap: 30px;
+  }
+  
+  .content {
+    min-width: 240px;
+    max-width: 280px;
+    padding: 16px;
+  }
+  
+  .content h2 {
+    font-size: 1.4rem;
+    margin: 4px 0 3px 0;
+  }
+  
+  .content h3 {
+    font-size: 1rem;
+    margin: 3px 0 4px 0;
+  }
+  
+  .content h4 {
+    font-size: 0.9rem;
+    margin: 0 0 8px 0;
+    line-height: 1.2;
+  }
+  
+  .content h5 {
+    font-size: 0.9rem;
+    margin: 2px 0;
+  }
+  
+  img {
+    width: 120px;
+    height: 120px;
+    margin-bottom: 8px;
+    border-radius: 6px;
+  }
+  
+  .track-info {
+    margin-top: 8px;
+  }
+  
+  
+  .content::before {
+    width: 16px;
+    height: 16px;
+    top: -8px;
+  }
+  
+  
+  .shape.line-1,
+  .shape.line-2,
+  .shape.hexagon-1 {
+    display: none;
+  }
+  
+  .circle-1 {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .circle-2 {
+    width: 60px;
+    height: 60px;
+  }
+  
+  .triangle-1 {
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-bottom: 30px solid #45b7d1;
+  }
+  
+  .triangle-2 {
+    border-left: 18px solid transparent;
+    border-right: 18px solid transparent;
+    border-bottom: 36px solid #f7b731;
+  }
+  
+  .square-1 {
+    width: 25px;
+    height: 25px;
+  }
+  
+  .square-2 {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .diamond-1 {
+    width: 20px;
+    height: 20px;
+  }
+  
+  .diamond-2 {
+    width: 30px;
+    height: 30px;
+  }
+}
+
+/* Extra Small Mobile Screens (360px and down) */
+@media screen and (max-width: 22.5em) {
+  .timeline {
+    margin: 40px auto 0 auto;
+    padding: 0 10px;
+  }
+  
+  .timeline-content {
+    gap: 25px;
+  }
+  
+  .content {
+    min-width: 200px;
+    max-width: 240px;
+    padding: 12px;
+  }
+  
+  .content h2 {
+    font-size: 1.2rem;
+    margin: 3px 0 2px 0;
+  }
+  
+  .content h3 {
+    font-size: 0.9rem;
+    margin: 2px 0 3px 0;
+  }
+  
+  .content h4 {
+    font-size: 0.8rem;
+    margin: 0 0 6px 0;
+    line-height: 1.15;
+  }
+  
+  .content h5 {
+    font-size: 0.8rem;
+    margin: 1px 0;
+  }
+  
+  img {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 6px;
+    border-radius: 4px;
+  }
+  
+  .track-info {
+    margin-top: 6px;
+  }
+  
+  /* Timeline dot adjustment */
+  .content::before {
+    width: 12px;
+    height: 12px;
+    top: -6px;
+  }
+  
+  /* Timeline line adjustment */
+  .timeline-content::before {
+    width: 3px;
+  }
+  
+  /* Further reduce animated shapes */
+  .circle-1 {
+    width: 30px;
+    height: 30px;
+  }
+  
+  .circle-2 {
+    width: 45px;
+    height: 45px;
+  }
+  
+  .triangle-1 {
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 20px solid #45b7d1;
+  }
+  
+  .triangle-2 {
+    border-left: 12px solid transparent;
+    border-right: 12px solid transparent;
+    border-bottom: 24px solid #f7b731;
+  }
+  
+  .square-1 {
+    width: 18px;
+    height: 18px;
+  }
+  
+  .square-2 {
+    width: 28px;
+    height: 28px;
+  }
+  
+  .diamond-1 {
+    width: 15px;
+    height: 15px;
+  }
+  
+  .diamond-2 {
+    width: 22px;
+    height: 22px;
+  }
+}
+
+/* Ensure desktop layout stays horizontal for screens larger than laptop range */
+@media screen and (min-width: 85.51em) {
+  .timeline-content {
+    display: flex;
+    flex-direction: row;
+  }
+  
+  .timeline-content::before {
+    height: 60px;
+    width: 100%;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 60'%3E%3Cpath d='M0 30 Q150 5 300 30 T600 30 T900 30 T1200 30' stroke='black' stroke-width='30' fill='none'/%3E%3C/svg%3E");
+    background-repeat: repeat-x;
+    background-size: 400px 60px;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  
+  .content::before {
+    display: none;
+  }
+  
+  .right {
+    transform: translateY(-150px);
+  }
+  
+  .left {
+    transform: translateY(150px);
+  }
+  
+  .content:hover {
+    transform: translateY(-150px) scale(1.02);
+  }
+  
+  .left:hover {
+    transform: translateY(150px) scale(1.02);
+  }
 }
 
 </style>

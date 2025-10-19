@@ -36,11 +36,10 @@ background: linear-gradient(0deg,rgba(235, 143, 143, 1) 0%, rgba(245, 125, 125, 
   z-index: 100;
   display: flex;
   align-items: center;
-  justify-content: space-between; /* Space between logo and nav link */
-  box-shadow: none; /* Remove hard shadow for smoother fade */
+  justify-content: space-between; 
+  box-shadow: none; 
 }
 
-/* Add fade effect to bottom of header */
 .header::after {
   content: '';
   position: absolute;
@@ -55,59 +54,65 @@ background: linear-gradient(0deg,rgba(235, 143, 143, 1) 0%, rgba(245, 125, 125, 
   z-index: -1;
 }
 
-/* Style the header links */
+
 .header a {
   color: black;
   text-align: center;
-  padding: 0.75em; /* Converted from 12px */
+  padding: 0.75em; 
   text-decoration: none;
-  font-size: 2em; /* Converted from 18px */
-  line-height: 1.39; /* Converted from 25px (25/18 = 1.39) */
-  border-radius: 0.25em; /* Converted from 4px */
+  font-size: 2em; 
+  line-height: 1.39; 
+  border-radius: 0.25em; 
   font-family: 'new-kansas', sans-serif;
   font-weight: bold;
 }
 
-/* Style the logo link */
+
 .header a.logo {
-  font-size: 2em; /* Converted from 25px */
+  font-size: 2em; 
   font-family: 'new-kansas', sans-serif;
   font-weight: bold;
 }
 
-/* Change the background color on mouse-over */
+
 .header a:hover {
   background-color: #ddd;
   color: black;
 }
 
-/* Style the active/current link*/
+
 .header a.active {
   background-color: dodgerblue;
   color: white;
 }
 
-/* Float the link section to the right */
+
 .header-right {
   float: right;
 }
 
 /* Add media queries for responsiveness - when the screen is 500px wide or less, stack the links on top of each other */
-@media screen and (max-width: 31.25em) { /* Converted from 500px */
+@media screen and (max-width: 31.25em) { 
   .header {
     flex-direction: column;
-    padding: 0.625em 0.3125em; /* Converted from 10px 5px */
-    min-width: 7.5em; /* Converted from 120px */
-    max-width: 98vw;
+    padding: 0.625em 0; 
+    width: 100vw; 
+    margin: 0;
+    left: 0; 
+    box-sizing: border-box; 
   }
   .header a {
-    font-size: 0.75em; /* Converted from 12px */
-    padding: 0.5em; /* Converted from 8px */
+    font-size: 0.75em; 
+    padding: 0.5em 1em; 
+    width: 100%; 
+    text-align: center; 
+    box-sizing: border-box;
   }
   .header a.logo {
-    font-size: 1.125em; /* Converted from 18px */
+    font-size: 1.125em; 
     font-weight: bold;
-    margin-bottom: 0.25em; /* Converted from 4px */
+    margin-bottom: 0.25em; 
+    width: 100%; 
   }
 }
 </style>
