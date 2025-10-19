@@ -1,7 +1,10 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
+// Get base URL - handle both dev and production
+const baseUrl = import.meta.env.BASE_URL || '/'
+
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
+  history: createWebHistory(baseUrl),
   routes: [
     {
       path: '/',

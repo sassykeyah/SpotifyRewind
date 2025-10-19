@@ -6,8 +6,8 @@ import vueJsx from '@vitejs/plugin-vue-jsx'
 import vueDevTools from 'vite-plugin-vue-devtools'
 
 // https://vitejs.dev/config/
-export default defineConfig({
-  base: '/SpotifyRewind/',
+export default defineConfig(({ command }) => ({
+  base: command === 'build' ? '/SpotifyRewind/' : '/',
   plugins: [
     vue(),
     vueJsx(),
@@ -18,4 +18,4 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
   }
-})
+}))
