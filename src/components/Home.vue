@@ -40,7 +40,8 @@ export default {
             ...track,
             description: event.description,
             title: event.title,
-            year: event.year
+            year: event.year,
+            trackId: event.trackId  // Include the original trackId for routing
           })
         } catch (error) {
           console.error(`Error fetching track ${event.trackId}:`, error)
@@ -96,7 +97,7 @@ export default {
         v-for="(track, i) in tracks"
         :key="track.id"
         :class="i % 2 === 0 ? 'right' : 'left'"
-      >  <RouterLink :to="{ name: 'track', params: { id: track.id } }">
+      >  <RouterLink :to="{ name: 'track', params: { id: track.trackId } }">
         <img :src="track.album.images[0]?.url" alt="Album Cover" />
         <h2>{{ track.year }}</h2> <!-- Use historical year from array -->
         <h3>{{ track.title }}</h3>
