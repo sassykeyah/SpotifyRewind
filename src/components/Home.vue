@@ -1,6 +1,7 @@
 <script lang="js">
 import { events } from '@/data/events.js'
-import { getSpotifyAccessToken, fetchSpotifyTrack } from '@/services/spotify.js'
+// Using mock data for GitHub Pages deployment to avoid CORS issues
+import { getMockAccessToken, fetchMockSpotifyTrack } from '@/data/mockTracks.js'
 
 export default {
   name: 'SpotifyTracks',
@@ -29,12 +30,12 @@ export default {
   },
   methods: {
     async getAccessToken() {
-      this.accessToken = await getSpotifyAccessToken()
+      this.accessToken = await getMockAccessToken()
     },
     async fetchTracks() {
       for (const event of this.events) {
         try {
-          const track = await fetchSpotifyTrack(event.trackId, this.accessToken)
+          const track = await fetchMockSpotifyTrack(event.trackId)
           
           this.tracks.push({
             ...track,
