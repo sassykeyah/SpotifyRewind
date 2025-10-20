@@ -77,7 +77,7 @@ export default {
 
 <template>
   <div class="timeline">
-    <!-- Animated Background Shapes -->
+    
     <div class="animated-background">
       <div class="shape circle-1"></div>
       <div class="shape circle-2"></div>
@@ -129,7 +129,7 @@ img {
 .timeline {
   position: relative;
   width: 100vw;
-  margin: 100px auto 0 auto;
+  margin: 140px auto 0 auto; /* Increased from 100px to ensure nav clearance */
   min-height: 600px;
   overflow: visible;
   font-family: "new-kansas", sans-serif;
@@ -604,7 +604,7 @@ body::-webkit-scrollbar-thumb:hover {
 /* Laptop Screens (1368px x 912px area)  */
 @media screen and (max-width: 85.5em) and (min-width: 48.01em) {
   .timeline {
-    margin: 120px auto 0 auto; 
+    margin: 140px auto 0 auto; /* Increased from 120px to ensure nav clearance */
   }
   
   .timeline-content {
@@ -729,7 +729,7 @@ body::-webkit-scrollbar-thumb:hover {
 /* Tablet/Medium Screens (768px and down)  */
 @media screen and (max-width: 48em) {
   .timeline {
-    margin: 100px auto 0 auto; 
+    margin: 140px auto 0 auto; /* Increased from 100px to ensure nav clearance */
     width: 100%;
     padding: 0 20px;
   }
@@ -877,7 +877,7 @@ body::-webkit-scrollbar-thumb:hover {
 /* Mobile/Small Screens (480px and down) */
 @media screen and (max-width: 30em) {
   .timeline {
-    margin: 50px auto 0 auto;
+    margin: 180px auto 0 auto; /* Increased significantly for mobile stacked nav */
     padding: 0 15px;
   }
   
@@ -983,7 +983,7 @@ body::-webkit-scrollbar-thumb:hover {
 /* Extra Small Mobile Screens (360px and down) */
 @media screen and (max-width: 22.5em) {
   .timeline {
-    margin: 40px auto 0 auto;
+    margin: 180px auto 0 auto; /* Increased significantly for mobile stacked nav */
     padding: 0 10px;
   }
   
