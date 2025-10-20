@@ -91,7 +91,20 @@ export default {
       <div class="shape line-1"></div>
       <div class="shape line-2"></div>
     </div>
+    
     <div class="timeline-content">
+      <!-- Introductory Card as first timeline item -->
+      <div class="content intro-timeline-card">
+        <div class="intro-content">
+          <h1>Spotify Rewind</h1>
+          <p>Take a trip through Australia's most significant historical moments, and the most popular songs from that year. From the 1956 Melbourne Olympics to the 2023 Voice to Parliament referendum, discover how our nations story can be emulated through the connection of music and history.</p>
+          <div class="scroll-instruction">
+            <span class="desktop-instruction">Scroll horizontally to explore the timeline</span>
+            <span class="mobile-instruction">Scroll down to explore the timeline</span>
+          </div>
+        </div>
+      </div>
+      
       <div
         class="content"
         v-for="(track, i) in tracks"
@@ -135,6 +148,57 @@ img {
   font-family: "new-kansas", sans-serif;
   font-weight: 400;
   font-style: normal;
+}
+
+/* Introductory Timeline Card */
+.intro-timeline-card {
+ 
+  transform: translateY(0) !important;
+  margin-right: 0 !important;
+  min-width: 450px !important;
+  max-width: 600px !important;
+  
+  
+  background: linear-gradient(190deg, rgba(235, 143, 143, 1) 0%, rgba(249, 202, 147) 75%) !important;
+}
+
+.intro-content h1 {
+  font-size: 2.4rem;
+  font-weight: bold;
+  color: black;
+  margin: 0 0 16px 0;
+  font-family: "new-kansas", sans-serif;
+  text-align: center;
+}
+
+.intro-content p {
+  font-size: 1.2rem;
+  color: black;
+  line-height: 1.5;
+  margin: 0 0 20px 0;
+  font-family: "new-kansas", sans-serif;
+  font-weight: 400;
+  text-align: center;
+}
+
+.scroll-instruction {
+  font-size: 1rem;
+  color: black;
+  font-weight: bold;
+  font-family: "new-kansas", sans-serif;
+  text-align: center;
+  display: block;
+  width: 100%;
+}
+
+.mobile-instruction {
+  display: none;
+  font-weight: bold;
+}
+
+.desktop-instruction {
+  display: inline;
+  font-weight: bold;
 }
 
 
@@ -405,11 +469,11 @@ img {
   content: '';
   position: absolute;
   height: 60px; 
-  width: 100%;
+  width: calc(100% + 200px); 
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 60'%3E%3Cpath d='M0 30 Q150 5 300 30 T600 30 T900 30 T1200 30' stroke='black' stroke-width='30' fill='none'/%3E%3C/svg%3E");
   background-repeat: repeat-x;
   background-size: 400px 60px; 
-  left: 0;
+  left: -100px; 
   top: 50%;
   transform: translateY(-50%);
   z-index: 0;
@@ -483,7 +547,7 @@ img {
 
 .content h5 { 
   font-size: 1.4em;
-  font-weight: 400;
+  font-weight: bold;
   margin: 6px 0;
   color: black;
   text-align: center;
@@ -603,6 +667,26 @@ body::-webkit-scrollbar-thumb:hover {
 
 /* Laptop Screens (1368px x 912px area)  */
 @media screen and (max-width: 85.5em) and (min-width: 48.01em) {
+  .intro-timeline-card {
+    min-width: 300px !important;
+    max-width: 400px !important;
+  }
+  
+  .intro-content h1 {
+    font-size: 1.8rem;
+    margin: 0 0 12px 0;
+  }
+  
+  .intro-content p {
+    font-size: 1rem;
+    margin: 0 0 15px 0;
+    line-height: 1.4;
+  }
+  
+  .scroll-instruction {
+    font-size: 0.9rem;
+  }
+  
   .timeline {
     margin: 140px auto 0 auto; /* Increased from 120px to ensure nav clearance */
   }
@@ -672,6 +756,8 @@ body::-webkit-scrollbar-thumb:hover {
   .timeline-content::before {
     height: 50px;
     background-size: 350px 50px;
+    width: calc(100% + 200px); /* Extend beyond viewport */
+    left: -100px; /* Start 100px before viewport */
   }
   
   
@@ -728,6 +814,35 @@ body::-webkit-scrollbar-thumb:hover {
 
 /* Tablet/Medium Screens (768px and down)  */
 @media screen and (max-width: 48em) {
+  .intro-timeline-card {
+
+    min-width: 280px ;
+    max-width: 320px ;
+  }
+  
+  .intro-content h1 {
+    font-size: 1.6rem;
+    margin: 0 0 10px 0;
+  }
+  
+  .intro-content p {
+    font-size: 0.95rem;
+    margin: 0 0 12px 0;
+    line-height: 1.4;
+  }
+  
+  .scroll-instruction {
+    font-size: 0.85rem;
+  }
+  
+  .desktop-instruction {
+    display: none;
+  }
+  
+  .mobile-instruction {
+    display: inline;
+  }
+  
   .timeline {
     margin: 140px auto 0 auto; /* Increased from 100px to ensure nav clearance */
     width: 100%;
@@ -735,6 +850,7 @@ body::-webkit-scrollbar-thumb:hover {
   }
   
   .timeline-content {
+    
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -874,8 +990,35 @@ body::-webkit-scrollbar-thumb:hover {
   }
 }
 
+/* Intermediate breakpoint for stacked header (500px and down) */
+@media screen and (max-width: 31.25em) {
+  .timeline {
+    margin: 200px auto 0 auto; /* Extra margin for stacked header */
+  }
+}
+
 /* Mobile/Small Screens (480px and down) */
 @media screen and (max-width: 30em) {
+  .intro-timeline-card {
+    min-width: 260px !important;
+    max-width: 300px !important;
+  }
+  
+  .intro-content h1 {
+    font-size: 1.4rem;
+    margin: 0 0 8px 0;
+  }
+  
+  .intro-content p {
+    font-size: 0.9rem;
+    margin: 0 0 10px 0;
+    line-height: 1.3;
+  }
+  
+  .scroll-instruction {
+    font-size: 0.8rem;
+  }
+  
   .timeline {
     margin: 180px auto 0 auto; /* Increased significantly for mobile stacked nav */
     padding: 0 15px;
@@ -982,6 +1125,26 @@ body::-webkit-scrollbar-thumb:hover {
 
 /* Extra Small Mobile Screens (360px and down) */
 @media screen and (max-width: 22.5em) {
+  .intro-timeline-card {
+    min-width: 220px !important;
+    max-width: 260px !important;
+  }
+  
+  .intro-content h1 {
+    font-size: 1.2rem;
+    margin: 0 0 6px 0;
+  }
+  
+  .intro-content p {
+    font-size: 0.8rem;
+    margin: 0 0 8px 0;
+    line-height: 1.2;
+  }
+  
+  .scroll-instruction {
+    font-size: 0.7rem;
+  }
+  
   .timeline {
     margin: 180px auto 0 auto; /* Increased significantly for mobile stacked nav */
     padding: 0 10px;
@@ -1094,11 +1257,11 @@ body::-webkit-scrollbar-thumb:hover {
   
   .timeline-content::before {
     height: 60px;
-    width: 100%;
+    width: calc(100% + 200px); /* Extend beyond viewport */
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 60'%3E%3Cpath d='M0 30 Q150 5 300 30 T600 30 T900 30 T1200 30' stroke='black' stroke-width='30' fill='none'/%3E%3C/svg%3E");
     background-repeat: repeat-x;
     background-size: 400px 60px;
-    left: 0;
+    left: -100px; /* Start 100px before viewport */
     top: 50%;
     transform: translateY(-50%);
   }
