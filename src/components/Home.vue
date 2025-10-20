@@ -142,7 +142,7 @@ img {
 .timeline {
   position: relative;
   width: 100vw;
-  margin: 140px auto 0 auto; /* Increased from 100px to ensure nav clearance */
+  margin: 140px auto 0 auto; 
   min-height: 600px;
   overflow: visible;
   font-family: "new-kansas", sans-serif;
@@ -152,33 +152,42 @@ img {
 
 /* Introductory Timeline Card */
 .intro-timeline-card {
- 
+  /* Override positioning to be centered like first card */
   transform: translateY(0) !important;
   margin-right: 0 !important;
   min-width: 450px !important;
   max-width: 600px !important;
   
+  /* Different background to distinguish it */
+  background: linear-gradient(190deg, rgba(235, 143, 143, 1) 0%, rgba(249, 202, 147) 75%, rgba(245, 125, 125, 1) 31%);
   
-  background: linear-gradient(190deg, rgba(235, 143, 143, 1) 0%, rgba(249, 202, 147) 75%) !important;
+  /* Emphasis effects without changing color */
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25), 0 0 0 2px rgba(255, 255, 255, 0.1) !important; /* Enhanced shadow + subtle border */
+  border: 2px solid rgba(255, 255, 255, 0.2); /* Subtle white border */
+  position: relative;
+  z-index: 10; /* Higher z-index to appear above other elements */
 }
 
 .intro-content h1 {
-  font-size: 2.4rem;
+  font-size: 2.6rem; /* Slightly larger */
   font-weight: bold;
   color: black;
-  margin: 0 0 16px 0;
+  margin: 0 0 18px 0;
   font-family: "new-kansas", sans-serif;
   text-align: center;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); /* Subtle text shadow for depth */
+  letter-spacing: 0.5px; /* Slight letter spacing for elegance */
 }
 
 .intro-content p {
-  font-size: 1.2rem;
+  font-size: 1.3rem; /* Slightly larger */
   color: black;
-  line-height: 1.5;
-  margin: 0 0 20px 0;
+  line-height: 1.6; /* Better readability */
+  margin: 0 0 22px 0;
   font-family: "new-kansas", sans-serif;
-  font-weight: 400;
+  font-weight: 450; /* Slightly bolder than 400 */
   text-align: center;
+  text-shadow: 0.5px 0.5px 1px rgba(0, 0, 0, 0.05); /* Very subtle text shadow */
 }
 
 .scroll-instruction {
