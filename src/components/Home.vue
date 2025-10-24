@@ -26,7 +26,7 @@ export default {
       
       await this.$nextTick(() => {
         window.scrollTo({
-          left: 200,
+          left: 0,
           behavior: 'instant'
         })
       })
@@ -146,6 +146,7 @@ export default {
         <div class="intro-content">
           <h1>Spotify Rewind</h1>
           <p>Take a trip through Australia's most significant historical moments, and the most popular songs from that year. From the 1956 Melbourne Olympics to the 2023 Voice to Parliament referendum, discover how our nations story can be emulated through the connection of music and history.</p>
+          <p>Spotify Rewind provides a juxtaposition between the two sets of data and is not to be used to draw literal conclusions.</p>
           <div class="scroll-instruction">
             <span class="desktop-instruction">Scroll horizontally to explore the timeline</span>
             <span class="mobile-instruction">Scroll down to explore the timeline</span>
