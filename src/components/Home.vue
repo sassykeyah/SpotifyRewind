@@ -115,8 +115,8 @@ export default {
         // For mobile/tablet, ensure we're at the top and allow vertical scroll
         window.scrollTo({ left: 0, top: 0, behavior: 'smooth' })
       } else {
-        // For desktop/laptop, restore horizontal position
-        window.scrollTo({ left: 200, top: 0, behavior: 'smooth' })
+        // For desktop/laptop, start at beginning to show intro card
+        window.scrollTo({ left: 0, top: 0, behavior: 'smooth' })
       }
     }
   }
