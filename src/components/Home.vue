@@ -627,6 +627,78 @@ body::-webkit-scrollbar-thumb:hover {
   }
 }
 
+/* Specific optimization for 1444x753 viewport */
+@media screen and (max-width: 90.25em) and (max-height: 47.06em) {
+  .timeline {
+    margin: 120px auto 0 auto; /* Reduced top margin for height constraint */
+  }
+  
+  .timeline-content {
+    gap: 45px; /* Tighter gap to fit more cards */
+    padding: 0 40px; /* Reduced padding */
+  }
+  
+  .content {
+    min-width: 280px; /* Smaller cards */
+    max-width: 380px;
+    padding: 20px; /* Reduced padding */
+  }
+  
+  .intro-timeline-card {
+    min-width: 380px !important; /* Proportionally smaller intro card */
+    max-width: 500px !important;
+  }
+  
+  .content h2 { /* Year */
+    font-size: 1.8rem;
+    margin: 6px 0 4px 0;
+  }
+  
+  .content h3 { /* Title */
+    font-size: 1.1rem;
+    margin: 4px 0 6px 0;
+    line-height: 1.2;
+  }
+  
+  .content h4 { /* Description */
+    font-size: 1.1rem;
+    margin: 0 0 10px 0;
+    line-height: 1.3;
+  }
+  
+  .content h5 {
+    font-size: 1.1em;
+    margin: 3px 0;
+  }
+  
+  img {
+    width: 140px; /* Smaller images */
+    height: 140px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+  }
+  
+  .track-info {
+    margin-top: 10px;
+  }
+  
+  /* Optimize intro card typography for space */
+  .intro-content h1 {
+    font-size: 2.2rem;
+    margin: 0 0 14px 0;
+  }
+  
+  .intro-content p {
+    font-size: 1.1rem;
+    margin: 0 0 18px 0;
+    line-height: 1.4;
+  }
+  
+  .scroll-instruction {
+    font-size: 0.95rem;
+  }
+}
+
 /* Desktop/Large Screens (1440px and down) */
 @media screen and (max-width: 90em) and (min-width: 85.51em) {
   .timeline-content {
