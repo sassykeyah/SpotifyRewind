@@ -84,13 +84,14 @@ export default {
 
     <!-- Success state - only render when track data is available -->
     <div v-else-if="track">
-      <!-- Year Section - Above the content block -->
-      <div class="year-section">
-        <h2 class="year">{{ getEventByTrackId(this.id)?.year }}</h2>
-      </div>
-
       <div class="track-details">
+        <!-- Year Section - Inside the content block -->
+        <div class="year-section">
+          <h2 class="year">{{ getEventByTrackId(this.id)?.year }}</h2>
+        </div>
+
         <div class="two-column-layout">
+          
         <!-- Event Data Column -->
         <div class="event-column">
           <img :src="getEventByTrackId(this.id)?.imageUrl" :alt="getEventByTrackId(this.id)?.imageAlt" class="event-image" />
@@ -317,9 +318,9 @@ export default {
 }
 
 .track-details {
-  max-width: 90em;
+  max-width: 200em;
   margin: 0 auto;
-  padding: 3em;
+  padding: 2em;
   background: linear-gradient(0deg, rgba(235, 143, 143, 1) 0%, rgba(245, 125, 125, 1) 31%, rgba(255, 210, 148, 1) 100%);
   border-radius: 1.5em;
   box-shadow: 0 0.25em 0.75em rgba(0, 0, 0, 0.15);
@@ -327,9 +328,7 @@ export default {
 
 .year-section {
   text-align: center;
-  margin-bottom: 3em;
-  max-width: 90em;
-  margin: 0 auto 3em auto;
+  margin-bottom: 1.5em;
 }
 
 .year {
@@ -348,7 +347,7 @@ export default {
 .two-column-layout {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 10em;
+  gap: 2em;
   align-items: start;
 }
 
@@ -367,8 +366,8 @@ export default {
 }
 
 .spotify-image {
-  max-width: 20em;
-  height: 20em;
+  max-width: 25em;
+  height: 25em;
   object-fit: cover;
   border-radius: 0.75em;
   box-shadow: 0 0.25em 0.75em rgba(0, 0, 0, 0.15);
@@ -376,8 +375,8 @@ export default {
 }
 
 .event-image {
-  max-width: 20em;
-  height: 20em;
+  max-width: 25em;
+  height: 25em;
   object-fit: cover;
   border-radius: 0.75em;
   box-shadow: 0 0.25em 0.75em rgba(0, 0, 0, 0.15);
@@ -385,14 +384,14 @@ export default {
 }
 
 .track-details h3 {
-  font-size: 2.8rem;
+  font-size: 2rem;
   font-weight: bold;
   margin: 0 0 0.375em 0;
   color: black;
 }
 
 .artist {
-  font-size: 1.8em;
+  font-size: 1.3em;
   font-weight: 400;
   margin: 0.6em 0 1.5em 0;
   color: black;
@@ -400,7 +399,7 @@ export default {
 
 .album,
 .release-date {
-  font-size: 1.4rem;
+  font-size: 1.2rem;
   font-weight: 400;
   margin: 0 0 0.75em 0;
   color: black;
@@ -444,7 +443,7 @@ p {
 }
 
 .event-title {
-  font-size: 2.8rem;
+  font-size: 2rem;
   font-weight: bold;
   color: black;
   margin: 0.2em 0 0.375em 0;
@@ -452,7 +451,7 @@ p {
 }
 
 .description {
-  font-size: 1.6rem;
+  font-size: 1.3rem;
   font-weight: 400;
   color: black;
   margin: 1.7em 0 0.375em 0;
@@ -460,100 +459,165 @@ p {
 }
 
 .caption {
-  font-size: 1.4rem;
+  font-size: 1.2rem;
   font-weight: 400;
   color: black;
   margin: 0.9em 0 0.75em 0;
   line-height: 1.4;
 }
 
-/* Desktop/Large Screens (1440px and down) - Only reduce slightly for very large screens */
-@media screen and (max-width: 90em) and (min-width: 85.51em) {
-  .track-details {
-    max-width: 65em;
-  }
-  
-  .two-column-layout {
-    gap: 4em;
-  }
-}
-
-/* Laptop Screens (1368px x 912px area) */
-@media screen and (max-width: 85.5em) and (min-width: 48.01em) {
+/* Laptop Screens (1444px viewport only) - Same as tablet */
+@media screen and (max-width: 90.25em) {
   .item {
-    margin-top: 6em; 
+    margin-top: 7em; 
   }
-  
+
   .track-details {
+    max-width: 40em;
     padding: 1.5em; 
-    margin-bottom: 1.5em; 
+    margin: 0 1.5em 2em 1.5em; 
   }
-  
+
+  .two-column-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5em; 
+  }
+
+  .event-column,
+  .spotify-column {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    text-align: left;
+    gap: 1.2em; 
+  }
+
+  .event-column .event-image,
+  .spotify-column .spotify-image {
+    flex-shrink: 0;
+    max-width: 7em; 
+    height: 7em;
+    margin-bottom: 0;
+  }
+
+  .event-info,
+  .spotify-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
   .year-section {
     margin-bottom: 1em; 
   }
-  
+
   .year {
-    font-size: 2.8rem; 
+    font-size: 2.2rem; 
   }
-  
+
   .track-details h3 {
-    font-size: 1.8rem; 
+    font-size: 1.4rem; 
     margin: 0 0 0.2em 0;
   }
-  
+
   .event-title {
-    font-size: 1.8rem; 
-    margin: 0.1em 0 0.2em 0;
+    font-size: 1.4rem; 
+    margin: 0 0 0.2em 0;
   }
-  
+
   .artist {
-    font-size: 1.3em;
-    margin: 0.2em 0 0.6em 0; 
+    font-size: 1.1em;
+    margin: 0.1em 0 0.4em 0; 
   }
-  
+
   .description {
-    font-size: 1.1rem; 
-    margin: 0.8em 0 0.2em 0; 
+    font-size: 1rem; 
+    margin: 0.5em 0 0.2em 0; 
     line-height: 1.25; 
   }
-  
+
   .caption {
-    font-size: 1rem;
-    margin: 0.4em 0 0.3em 0; 
+    font-size: 0.9rem; 
+    margin: 0.2em 0;
     line-height: 1.25;
   }
-  
+
   .album,
   .release-date {
-    font-size: 1rem; 
-    margin: 0 0 0.3em 0; 
+    font-size: 0.95rem; 
+    margin: 0.1em 0;
     line-height: 1.25;
   }
-  
-  .spotify-image,
-  .event-image {
-    max-width: 14em; 
-    height: 14em;
-    margin-bottom: 0.8em; 
-  }
-  
-  .spotify-link-section {
-    margin-top: 1em; 
-    margin-bottom: 1em; 
-  }
-  
+
   .spotify-link {
+    font-size: 1rem; 
     padding: 0.7em 1.4em; 
-    font-size: 1rem;
   }
-  
-  .two-column-layout {
-    gap: 6em; 
+
+  .spotify-link-section {
+    margin-top: 1.2em; 
+  }
+
+  /* Animation sizes to match Home tablet breakpoint */
+  .circle-1 {
+    width: 50px;
+    height: 50px;
+  }
+
+  .circle-2 {
+    width: 75px;
+    height: 75px;
+  }
+
+  .triangle-1 {
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
+    border-bottom: 40px solid #45b7d1;
+  }
+
+  .triangle-2 {
+    border-left: 25px solid transparent;
+    border-right: 25px solid transparent;
+    border-bottom: 50px solid #f7b731;
+  }
+
+  .square-1 {
+    width: 35px;
+    height: 35px;
+  }
+
+  .square-2 {
+    width: 55px;
+    height: 55px;
+  }
+
+  .diamond-1 {
+    width: 30px;
+    height: 30px;
+  }
+
+  .diamond-2 {
+    width: 45px;
+    height: 45px;
+  }
+
+  .line-1 {
+    width: 80px;
+  }
+
+  .line-2 {
+    width: 70px;
   }
 }
 
-/* Tablet/Medium Screens (768px and down) */
+/* Desktop Screens (769px to 1443px) - Between laptop and tablet */
+@media screen and (min-width: 48.01em) and (max-width: 90.24em) {
+  /* This range is now covered by the laptop breakpoint above */
+  /* Keeping this empty to match Home structure */
+}
+
+/* Tablet/Medium Screens (768px and down) - Same breakpoint as Home */
 @media screen and (max-width: 48em) {
   .item {
     margin-top: 7em; 
@@ -647,59 +711,66 @@ p {
     margin-top: 1.2em; 
   }
 
-  
+  /* Animation sizes to match Home tablet breakpoint */
   .circle-1 {
-    width: 60px;
-    height: 60px;
+    width: 50px;
+    height: 50px;
   }
 
   .circle-2 {
-    width: 90px;
-    height: 90px;
+    width: 75px;
+    height: 75px;
   }
 
   .triangle-1 {
-    border-left: 25px solid transparent;
-    border-right: 25px solid transparent;
-    border-bottom: 50px solid #45b7d1;
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
+    border-bottom: 40px solid #45b7d1;
   }
 
   .triangle-2 {
-    border-left: 30px solid transparent;
-    border-right: 30px solid transparent;
-    border-bottom: 60px solid #f7b731;
+    border-left: 25px solid transparent;
+    border-right: 25px solid transparent;
+    border-bottom: 50px solid #f7b731;
   }
 
   .square-1 {
-    width: 45px;
-    height: 45px;
+    width: 35px;
+    height: 35px;
   }
 
   .square-2 {
-    width: 70px;
-    height: 70px;
-  }
-
-  .diamond-1 {
-    width: 40px;
-    height: 40px;
-  }
-
-  .diamond-2 {
     width: 55px;
     height: 55px;
   }
 
+  .diamond-1 {
+    width: 30px;
+    height: 30px;
+  }
+
+  .diamond-2 {
+    width: 45px;
+    height: 45px;
+  }
+
   .line-1 {
-    width: 120px;
+    width: 80px;
   }
 
   .line-2 {
-    width: 100px;
+    width: 70px;
   }
 }
 
-/* Mobile/Small Screens (480px and down) */
+/* Intermediate breakpoint for stacked header (500px and down) - Same as Home */
+@media screen and (max-width: 31.25em) {
+  .item {
+    margin-top: 8em; /* Extra margin for stacked header */
+  }
+}
+
+/* Mobile/Small Screens (480px and down) - Same as Home */
 @media screen and (max-width: 30em) {
   .item {
     margin-top: 7.5em;
@@ -785,14 +856,13 @@ p {
     margin-top: 1.2em;
   }
 
-  
+  /* Hide some shapes and adjust others to match Home mobile breakpoint */
   .shape.line-1,
   .shape.line-2,
   .shape.hexagon-1 {
     display: none;
   }
 
-  
   .circle-1 {
     width: 40px;
     height: 40px;
@@ -810,29 +880,29 @@ p {
   }
 
   .triangle-2 {
-    border-left: 20px solid transparent;
-    border-right: 20px solid transparent;
-    border-bottom: 40px solid #f7b731;
+    border-left: 18px solid transparent;
+    border-right: 18px solid transparent;
+    border-bottom: 36px solid #f7b731;
   }
 
   .square-1 {
-    width: 30px;
-    height: 30px;
-  }
-
-  .square-2 {
-    width: 45px;
-    height: 45px;
-  }
-
-  .diamond-1 {
     width: 25px;
     height: 25px;
   }
 
+  .square-2 {
+    width: 40px;
+    height: 40px;
+  }
+
+  .diamond-1 {
+    width: 20px;
+    height: 20px;
+  }
+
   .diamond-2 {
-    width: 35px;
-    height: 35px;
+    width: 30px;
+    height: 30px;
   }
 }
 
@@ -921,7 +991,7 @@ p {
     margin-top: 1em;
   }
 
-  
+  /* Animation sizes to match Home extra small mobile breakpoint */
   .circle-1 {
     width: 30px;
     height: 30px;
@@ -945,23 +1015,23 @@ p {
   }
 
   .square-1 {
-    width: 20px;
-    height: 20px;
-  }
-
-  .square-2 {
-    width: 30px;
-    height: 30px;
-  }
-
-  .diamond-1 {
     width: 18px;
     height: 18px;
   }
 
+  .square-2 {
+    width: 28px;
+    height: 28px;
+  }
+
+  .diamond-1 {
+    width: 15px;
+    height: 15px;
+  }
+
   .diamond-2 {
-    width: 25px;
-    height: 25px;
+    width: 22px;
+    height: 22px;
   }
 }
 
@@ -977,7 +1047,7 @@ p {
 }
 
 /* Ensure desktop layout stays as original for screens larger than laptop range */
-@media screen and (min-width: 85.51em) {
+@media screen and (min-width: 90.26em) {
   .item {
     margin-top: 8em; /* Ensure year is never hidden on large desktop sizes */
   }
@@ -993,6 +1063,13 @@ p {
   .event-info,
   .spotify-info {
     display: contents;
+  }
+  
+  .two-column-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10em;
+    align-items: start;
   }
 }
 

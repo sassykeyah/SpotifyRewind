@@ -8,23 +8,37 @@ export default {
     return {
       accessToken: '',
       events: events, // Use imported global events array
-      tracks: []
+      tracks: [],
+      isLoading: true,
+      loadingProgress: 0
     }
   },
   async mounted() {
-    await this.getAccessToken()
-    await this.fetchTracks()
-    this.setupHorizontalScroll()
+    // Allow immediate scrolling by setting up basic scroll first
+    this.setupBasicScroll()
     
-    await this.$nextTick(() => {
-      window.scrollTo({
-        left: 200,
-        behavior: 'instant'
+    try {
+      await this.getAccessToken()
+      await this.fetchTracks()
+      
+      // Only setup horizontal scroll after content is loaded
+      this.setupHorizontalScroll()
+      
+      await this.$nextTick(() => {
+        window.scrollTo({
+          left: 200,
+          behavior: 'instant'
+        })
       })
-    })
+    } catch (error) {
+      console.error('Error loading content:', error)
+    } finally {
+      this.isLoading = false
+    }
   },
   beforeDestroy() {
     window.removeEventListener('wheel', this.handleScroll)
+    window.removeEventListener('wheel', this.handleBasicScroll)
     window.removeEventListener('resize', this.handleResize)
   },
   methods: {
@@ -32,25 +46,59 @@ export default {
       this.accessToken = await getSpotifyAccessToken()
     },
     async fetchTracks() {
-      for (const event of this.events) {
+      // Show immediate progress
+      this.loadingProgress = 5
+      
+      // Create array of promises for parallel execution
+      const trackPromises = this.events.map(async (event, index) => {
         try {
           const track = await fetchSpotifyTrack(event.trackId, this.accessToken)
           
-          this.tracks.push({
+          // Update progress (starting from 10% to leave room for immediate feedback)
+          this.loadingProgress = Math.round(10 + ((index + 1) / this.events.length) * 90)
+          
+          return {
             ...track,
             description: event.description,
             title: event.title,
             year: event.year,
             trackId: event.trackId  // Include the original trackId for routing
-          })
+          }
         } catch (error) {
           console.error(`Error fetching track ${event.trackId}:`, error)
+          // Return placeholder data for failed requests
+          return {
+            id: event.trackId,
+            name: 'Track not available',
+            artists: [{ name: 'Unknown Artist' }],
+            album: { images: [{ url: '/placeholder-album.jpg' }] },
+            description: event.description,
+            title: event.title,
+            year: event.year,
+            trackId: event.trackId
+          }
         }
-      }
+      })
+
+      // Execute all requests in parallel
+      this.tracks = await Promise.all(trackPromises)
+      this.loadingProgress = 100
+    },
+    setupBasicScroll() {
+      // Allow basic scrolling during loading
+      window.addEventListener('wheel', this.handleBasicScroll, { passive: true })
     },
     setupHorizontalScroll() {
+      // Remove basic scroll handler
+      window.removeEventListener('wheel', this.handleBasicScroll)
+      
+      // Setup horizontal scroll only when content is ready
       window.addEventListener('wheel', this.handleScroll, { passive: false })
       window.addEventListener('resize', this.handleResize)
+    },
+    handleBasicScroll(event) {
+      // Allow normal scrolling behavior during loading
+      // This handler is passive, so it won't prevent default behavior
     },
     handleScroll(event) {
       // Only prevent default and force horizontal scroll for screens larger than tablet
@@ -78,18 +126,18 @@ export default {
 <template>
   <div class="timeline">
     
-    <div class="animated-background">
-      <div class="shape circle-1"></div>
-      <div class="shape circle-2"></div>
-      <div class="shape triangle-1"></div>
-      <div class="shape triangle-2"></div>
-      <div class="shape square-1"></div>
-      <div class="shape square-2"></div>
-      <div class="shape diamond-1"></div>
-      <div class="shape diamond-2"></div>
-      <div class="shape hexagon-1"></div>
-      <div class="shape line-1"></div>
-      <div class="shape line-2"></div>
+    <div class="animated-background" :class="{ 'animations-loaded': !isLoading }">
+      <div v-if="!isLoading" class="shape circle-1"></div>
+      <div v-if="!isLoading" class="shape circle-2"></div>
+      <div v-if="!isLoading" class="shape triangle-1"></div>
+      <div v-if="!isLoading" class="shape triangle-2"></div>
+      <div v-if="!isLoading" class="shape square-1"></div>
+      <div v-if="!isLoading" class="shape square-2"></div>
+      <div v-if="!isLoading" class="shape diamond-1"></div>
+      <div v-if="!isLoading" class="shape diamond-2"></div>
+      <div v-if="!isLoading" class="shape hexagon-1"></div>
+      <div v-if="!isLoading" class="shape line-1"></div>
+      <div v-if="!isLoading" class="shape line-2"></div>
     </div>
     
     <div class="timeline-content">
@@ -102,10 +150,36 @@ export default {
             <span class="desktop-instruction">Scroll horizontally to explore the timeline</span>
             <span class="mobile-instruction">Scroll down to explore the timeline</span>
           </div>
+          <!-- Loading progress indicator -->
+          <div v-if="isLoading" class="loading-progress">
+            <div class="progress-bar">
+              <div class="progress-fill" :style="{ width: loadingProgress + '%' }"></div>
+            </div>
+            <p class="loading-text">Loading tracks... {{ loadingProgress }}%</p>
+          </div>
         </div>
       </div>
       
+      <!-- Skeleton cards while loading -->
+      <div v-if="isLoading" class="skeleton-container">
+        <div
+          class="content skeleton-card"
+          v-for="(_, i) in events"
+          :key="'skeleton-' + i"
+          :class="i % 2 === 0 ? 'right' : 'left'"
+        >
+          <div class="skeleton skeleton-image"></div>
+          <div class="skeleton skeleton-year"></div>
+          <div class="skeleton skeleton-title"></div>
+          <div class="skeleton skeleton-description"></div>
+          <div class="skeleton skeleton-track-name"></div>
+          <div class="skeleton skeleton-artist"></div>
+        </div>
+      </div>
+      
+      <!-- Actual content cards -->
       <div
+        v-if="!isLoading"
         class="content"
         v-for="(track, i) in tracks"
         :key="track.id"
@@ -126,6 +200,103 @@ export default {
 </template>
 
 <style scoped>
+
+/* Loading progress indicator */
+.loading-progress {
+  margin-top: 16px;
+  width: 100%;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 8px;
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #ff6b6b, #4ecdc4);
+  border-radius: 4px;
+  transition: width 0.3s ease;
+}
+
+.loading-text {
+  margin-top: 8px;
+  font-size: 0.9rem;
+  color: black;
+  text-align: center;
+  font-weight: bold;
+}
+
+/* Skeleton loading styles */
+.skeleton-container {
+  display: contents;
+}
+
+.skeleton-card {
+  background: rgba(235, 143, 143, 0.8) !important;
+  position: relative;
+  overflow: hidden;
+}
+
+.skeleton {
+  background: linear-gradient(90deg, 
+    rgba(255, 255, 255, 0.1) 0%,
+    rgba(255, 255, 255, 0.3) 50%,
+    rgba(255, 255, 255, 0.1) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 8px;
+}
+
+.skeleton-image {
+  width: 200px;
+  height: 200px;
+  margin-bottom: 16px;
+  border-radius: 12px;
+}
+
+.skeleton-year {
+  width: 80px;
+  height: 32px;
+  margin: 12px auto 8px auto;
+}
+
+.skeleton-title {
+  width: 90%;
+  height: 24px;
+  margin: 8px auto 12px auto;
+}
+
+.skeleton-description {
+  width: 100%;
+  height: 60px;
+  margin: 0 auto 16px auto;
+}
+
+.skeleton-track-name {
+  width: 75%;
+  height: 20px;
+  margin: 6px auto;
+}
+
+.skeleton-artist {
+  width: 65%;
+  height: 20px;
+  margin: 6px auto;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
 
 
 img {
@@ -221,6 +392,15 @@ img {
   z-index: -1;
   overflow: hidden;
   background: linear-gradient(135deg, rgba(249, 202, 147) 0%,  rgb(209, 97, 97) 75%);
+  transition: opacity 0.5s ease;
+}
+
+.animated-background.animations-loaded {
+  opacity: 1;
+}
+
+.animated-background:not(.animations-loaded) .shape {
+  display: none;
 }
 
 
@@ -230,6 +410,7 @@ img {
   animation-timing-function: ease-in-out;
   animation-iteration-count: infinite;
   animation-direction: alternate;
+  will-change: transform;
 }
 
 
@@ -471,6 +652,7 @@ img {
   z-index: 1;
   width: max-content;
   min-width: 100vw;
+  contain: layout style;
 }
 
 
@@ -511,6 +693,8 @@ img {
   box-sizing: border-box;
   z-index: 2;
   transition: transform 0.3s ease;
+  will-change: transform;
+  contain: layout style;
 }
 
 
@@ -774,6 +958,58 @@ body::-webkit-scrollbar-thumb:hover {
     width: 120px;
   }
 }
+
+/* Skeleton responsive adjustments */
+@media screen and (max-width: 90.25em) {
+  .skeleton-image {
+    width: clamp(90px, min(12vw, 10vh), 140px);
+    height: clamp(90px, min(12vw, 10vh), 140px);
+  }
+  
+  .skeleton-year {
+    width: 60px;
+    height: 24px;
+  }
+  
+  .skeleton-title {
+    height: 20px;
+  }
+  
+  .skeleton-description {
+    height: 40px;
+  }
+  
+  .skeleton-track-name,
+  .skeleton-artist {
+    height: 16px;
+  }
+}
+
+@media screen and (max-width: 48em) {
+  .skeleton-image {
+    width: 110px;
+    height: 110px;
+  }
+  
+  .skeleton-year {
+    width: 50px;
+    height: 20px;
+  }
+  
+  .skeleton-title {
+    height: 18px;
+  }
+  
+  .skeleton-description {
+    height: 35px;
+  }
+  
+  .skeleton-track-name,
+  .skeleton-artist {
+    height: 14px;
+  }
+}
+
 
 /* Desktop Screens (769px to 1443px) */
 @media screen and (min-width: 48.01em) and (max-width: 90.24em) {
