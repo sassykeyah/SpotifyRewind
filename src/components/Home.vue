@@ -627,10 +627,30 @@ body::-webkit-scrollbar-thumb:hover {
   }
 }
 
-/* Specific optimization for 1444x753 viewport */
-@media screen and (max-width: 90.25em) and (max-height: 47.06em) {
+/* Laptop Screens (1444px viewport only)  */
+@media screen and (max-width: 90.25em) {
+  .intro-timeline-card {
+    min-width: clamp(260px, min(20vw, 16vh), 420px) !important;
+    max-width: clamp(320px, min(25vw, 20vh), 500px) !important;
+  }
+  
+  .intro-content h1 {
+    font-size: clamp(1.4rem, min(2.2vw, 1.8vh), 2.2rem);
+    margin: 0 0 clamp(8px, min(1vw, 0.8vh), 14px) 0;
+  }
+  
+  .intro-content p {
+    font-size: clamp(0.85rem, min(1.3vw, 1.1vh), 1.1rem);
+    margin: 0 0 clamp(10px, min(1.2vw, 1vh), 18px) 0;
+    line-height: 1.4;
+  }
+  
+  .scroll-instruction {
+    font-size: clamp(0.75rem, min(1.1vw, 0.9vh), 0.95rem);
+  }
+  
   .timeline {
-    margin: 80px auto 0 auto; /* Much reduced top margin to prevent cutoff */
+    margin: clamp(80px, 10vh, 140px) auto 0 auto; /* Responsive top margin */
   }
   
   .timeline-content {
@@ -639,199 +659,60 @@ body::-webkit-scrollbar-thumb:hover {
   }
   
   .content {
-    min-width: clamp(260px, 18vw, 320px); /* Clamp card width to viewport */
-    max-width: clamp(320px, 22vw, 380px);
-    padding: clamp(16px, 1.5vw, 20px); /* Clamp internal padding */
+    min-width: clamp(180px, min(15vw, 12vh), 320px); /* Combined range */
+    max-width: clamp(220px, min(18vw, 15vh), 380px);
+    padding: clamp(10px, min(1.2vw, 1vh), 20px); /* Combined range */
     min-height: auto; /* Let cards adjust height naturally */
   }
   
-  .intro-timeline-card {
-    min-width: clamp(340px, 24vw, 420px) !important; /* Clamp intro card */
-    max-width: clamp(420px, 30vw, 500px) !important;
-  }
-  
   .content h2 { /* Year */
-    font-size: clamp(1.5rem, 2.5vw, 1.8rem);
-    margin: clamp(4px, 0.5vw, 6px) 0 clamp(2px, 0.3vw, 4px) 0;
+    font-size: clamp(1.1rem, min(2vw, 1.8vh), 1.8rem);
+    margin: clamp(3px, min(0.4vw, 0.3vh), 6px) 0 clamp(2px, min(0.3vw, 0.25vh), 4px) 0;
   }
   
   .content h3 { /* Title */
-    font-size: clamp(0.95rem, 1.5vw, 1.1rem);
-    margin: clamp(3px, 0.4vw, 4px) 0 clamp(4px, 0.5vw, 6px) 0;
+    font-size: clamp(0.8rem, min(1.3vw, 1.1vh), 1.1rem);
+    margin: clamp(2px, min(0.3vw, 0.25vh), 4px) 0 clamp(3px, min(0.4vw, 0.3vh), 6px) 0;
     line-height: 1.2;
   }
   
   .content h4 { /* Description */
-    font-size: clamp(0.95rem, 1.5vw, 1.1rem);
-    margin: 0 0 clamp(8px, 1vw, 10px) 0;
-    line-height: 1.3;
+    font-size: clamp(0.75rem, min(1.2vw, 1vh), 1.1rem);
+    margin: 0 0 clamp(4px, min(0.6vw, 0.5vh), 10px) 0;
+    line-height: clamp(1.25, 1.3, 1.3);
   }
   
   .content h5 {
-    font-size: clamp(0.95em, 1.4vw, 1.1em);
-    margin: clamp(2px, 0.3vw, 3px) 0;
+    font-size: clamp(0.75em, min(1.2vw, 1vh), 1.1em);
+    margin: clamp(2px, min(0.25vw, 0.2vh), 3px) 0;
   }
   
   img {
-    width: clamp(120px, 15vw, 140px); /* Clamp image size */
-    height: clamp(120px, 15vw, 140px);
-    margin-bottom: clamp(8px, 1vw, 10px);
-    border-radius: clamp(6px, 0.8vw, 8px);
+    width: clamp(90px, min(12vw, 10vh), 140px); /* Combined range */
+    height: clamp(90px, min(12vw, 10vh), 140px);
+    margin-bottom: clamp(4px, min(0.6vw, 0.5vh), 10px);
+    border-radius: clamp(6px, min(0.8vw, 0.7vh), 8px);
   }
   
   .track-info {
-    margin-top: clamp(8px, 1vw, 10px);
-  }
-  
-  /* Optimize intro card typography for space with clamp */
-  .intro-content h1 {
-    font-size: clamp(1.8rem, 3vw, 2.2rem);
-    margin: 0 0 clamp(10px, 1.5vw, 14px) 0;
-  }
-  
-  .intro-content p {
-    font-size: clamp(0.95rem, 1.6vw, 1.1rem);
-    margin: 0 0 clamp(14px, 2vw, 18px) 0;
-    line-height: 1.4;
-  }
-  
-  .scroll-instruction {
-    font-size: clamp(0.85rem, 1.3vw, 0.95rem);
-  }
-}
-
-/* Desktop/Large Screens (1440px and down) */
-@media screen and (max-width: 90em) and (min-width: 85.51em) {
-  .timeline-content {
-    gap: 70px;
-    padding: 0 70px;
-  }
-  
-  .content {
-    min-width: 350px;
-    max-width: 480px;
-    padding: 30px;
-  }
-  
-  .content h2 { /* Year */
-    font-size: 2.1rem;
-    margin: 10px 0 7px 0;
-  }
-  
-  .content h3 { /* Title */
-    font-size: 1.35rem;
-    margin: 7px 0 10px 0;
-    line-height: 1.3;
-  }
-  
-  .content h4 { /* Description */
-    font-size: 1.35rem;
-    margin: 0 0 14px 0;
-    line-height: 1.4;
-  }
-  
-  .content h5 {
-    font-size: 1.35em;
-    margin: 5px 0;
-  }
-  
-  img {
-    width: 190px;
-    height: 190px;
-    margin-bottom: 14px;
-    border-radius: 11px;
-  }
-  
-  .track-info {
-    margin-top: 14px;
-  }
-}
-
-/* Laptop Screens (1368px x 912px area)  */
-@media screen and (max-width: 85.5em) and (min-width: 48.01em) {
-  .intro-timeline-card {
-    min-width: 300px !important;
-    max-width: 400px !important;
-  }
-  
-  .intro-content h1 {
-    font-size: 1.8rem;
-    margin: 0 0 12px 0;
-  }
-  
-  .intro-content p {
-    font-size: 1rem;
-    margin: 0 0 15px 0;
-    line-height: 1.4;
-  }
-  
-  .scroll-instruction {
-    font-size: 0.9rem;
-  }
-  
-  .timeline {
-    margin: 140px auto 0 auto; /* Increased from 120px to ensure nav clearance */
-  }
-  
-  .timeline-content {
-    gap: 40px;
-    padding: 0 40px;
-  }
-  
-  .content {
-    min-width: 240px; 
-    max-width: 300px;
-    padding: 18px; 
-  }
-  
-  .content h2 { /* Year */
-    font-size: 1.5rem; 
-    margin: 6px 0 4px 0;
-  }
-  
-  .content h3 { /* Title */
-    font-size: 1rem;
-    margin: 4px 0 6px 0;
-    line-height: 1.2;
-  }
-  
-  .content h4 { /* Description */
-    font-size: 0.9rem;
-    margin: 0 0 8px 0;
-    line-height: 1.25;
-  }
-  
-  .content h5 {
-    font-size: 0.9em;
-    margin: 3px 0;
-  }
-  
-  img {
-    width: 120px; 
-    height: 120px;
-    margin-bottom: 8px;
-    border-radius: 8px;
-  }
-  
-  .track-info {
-    margin-top: 8px;
+    margin-top: clamp(4px, min(0.6vw, 0.5vh), 10px);
   }
   
   
   .right {
-    transform: translateY(-80px); 
+    transform: translateY(-40px); 
   }
   
   .left {
-    transform: translateY(80px);
+    transform: translateY(-40px);
   }
   
   .content:hover {
-    transform: translateY(-80px) scale(1.02);
+    transform: translateY(-40px) scale(1.02);
   }
   
   .left:hover {
-    transform: translateY(80px) scale(1.02);
+    transform: translateY(-40px) scale(1.02);
   }
   
   
@@ -891,6 +772,77 @@ body::-webkit-scrollbar-thumb:hover {
   
   .line-2 {
     width: 120px;
+  }
+}
+
+/* Desktop Screens (769px to 1443px) */
+@media screen and (min-width: 48.01em) and (max-width: 90.24em) {
+  .timeline {
+    margin: 140px auto 0 auto;
+  }
+  
+  .timeline-content {
+    gap: 70px;
+    padding: 0 70px;
+  }
+  
+  .content {
+    min-width: 350px;
+    max-width: 480px;
+    padding: 30px;
+  }
+  
+  .content h2 { /* Year */
+    font-size: 2.1rem;
+    margin: 10px 0 7px 0;
+  }
+  
+  .content h3 { /* Title */
+    font-size: 1.35rem;
+    margin: 7px 0 10px 0;
+    line-height: 1.3;
+  }
+  
+  .content h4 { /* Description */
+    font-size: 1.35rem;
+    margin: 0 0 14px 0;
+    line-height: 1.4;
+  }
+  
+  .content h5 {
+    font-size: 1.35em;
+    margin: 5px 0;
+  }
+  
+  img {
+    width: 190px;
+    height: 190px;
+    margin-bottom: 14px;
+    border-radius: 11px;
+  }
+  
+  .track-info {
+    margin-top: 14px;
+  }
+  
+  .intro-timeline-card {
+    min-width: 450px !important;
+    max-width: 600px !important;
+  }
+  
+  .intro-content h1 {
+    font-size: 2.6rem;
+    margin: 0 0 18px 0;
+  }
+  
+  .intro-content p {
+    font-size: 1.3rem;
+    margin: 0 0 22px 0;
+    line-height: 1.6;
+  }
+  
+  .scroll-instruction {
+    font-size: 1rem;
   }
 }
 
@@ -1330,8 +1282,8 @@ body::-webkit-scrollbar-thumb:hover {
   }
 }
 
-/* Ensure desktop layout stays horizontal for screens larger than laptop range */
-@media screen and (min-width: 85.51em) {
+/* Ensure desktop layout stays horizontal for screens larger than 1444px */
+@media screen and (min-width: 90.26em) {
   .timeline-content {
     display: flex;
     flex-direction: row;
