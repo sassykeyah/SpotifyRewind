@@ -1,6 +1,6 @@
 <script lang="js">
 import { events } from '@/data/events.js'
-import { getSpotifyAccessToken, fetchSpotifyTrack } from '@/services/spotify.js'
+import { getSpotifyAccessToken, fetchMultipleSpotifyTracks } from '@/services/spotify.js'
 
 export default {
   name: 'SpotifyTracks',
@@ -47,42 +47,67 @@ export default {
     },
     async fetchTracks() {
       // Show immediate progress
-      this.loadingProgress = 5
+      this.loadingProgress = 10
       
-      // Create array of promises for parallel execution
-      const trackPromises = this.events.map(async (event, index) => {
-        try {
-          const track = await fetchSpotifyTrack(event.trackId, this.accessToken)
+      try {
+        // Extract all track IDs from events
+        const trackIds = this.events.map(event => event.trackId)
+        
+        // Update progress
+        this.loadingProgress = 30
+        
+        // Fetch all tracks in a single API call
+        const spotifyTracks = await fetchMultipleSpotifyTracks(trackIds, this.accessToken)
+        
+        // Update progress
+        this.loadingProgress = 70
+        
+        // Map the Spotify track data with the event data
+        this.tracks = this.events.map((event, index) => {
+          const spotifyTrack = spotifyTracks[index]
           
-          // Update progress (starting from 10% to leave room for immediate feedback)
-          this.loadingProgress = Math.round(10 + ((index + 1) / this.events.length) * 90)
+          // Handle case where track might be null (unavailable)
+          if (!spotifyTrack) {
+            console.warn(`Track ${event.trackId} not available`)
+            return {
+              id: event.trackId,
+              name: 'Track not available',
+              artists: [{ name: 'Unknown Artist' }],
+              album: { images: [{ url: '/placeholder-album.jpg' }] },
+              description: event.description,
+              title: event.title,
+              year: event.year,
+              trackId: event.trackId
+            }
+          }
           
           return {
-            ...track,
+            ...spotifyTrack,
             description: event.description,
             title: event.title,
             year: event.year,
             trackId: event.trackId  // Include the original trackId for routing
           }
-        } catch (error) {
-          console.error(`Error fetching track ${event.trackId}:`, error)
-          // Return placeholder data for failed requests
-          return {
-            id: event.trackId,
-            name: 'Track not available',
-            artists: [{ name: 'Unknown Artist' }],
-            album: { images: [{ url: '/placeholder-album.jpg' }] },
-            description: event.description,
-            title: event.title,
-            year: event.year,
-            trackId: event.trackId
-          }
-        }
-      })
-
-      // Execute all requests in parallel
-      this.tracks = await Promise.all(trackPromises)
-      this.loadingProgress = 100
+        })
+        
+        this.loadingProgress = 100
+      } catch (error) {
+        console.error('Error fetching tracks:', error)
+        
+        // Fallback: create placeholder data for all tracks
+        this.tracks = this.events.map(event => ({
+          id: event.trackId,
+          name: 'Track not available',
+          artists: [{ name: 'Unknown Artist' }],
+          album: { images: [{ url: '/placeholder-album.jpg' }] },
+          description: event.description,
+          title: event.title,
+          year: event.year,
+          trackId: event.trackId
+        }))
+        
+        this.loadingProgress = 100
+      }
     },
     setupBasicScroll() {
       // Allow basic scrolling during loading
